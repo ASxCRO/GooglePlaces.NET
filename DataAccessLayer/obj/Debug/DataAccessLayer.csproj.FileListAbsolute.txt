@@ -1,0 +1,13 @@
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

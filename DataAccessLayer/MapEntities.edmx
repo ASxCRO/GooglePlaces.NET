@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DOTNET2019Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Supan_Places">
+          <Key>
+            <PropertyRef Name="PLACE_ID" />
+          </Key>
+          <Property Name="PLACE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PLACE_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PLACE_LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="PLACE_LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="PLACE_TYPE" Type="int" />
+          <Property Name="PLACE_ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supan_PlaceTypes">
+          <Key>
+            <PropertyRef Name="TYPE_ID" />
+          </Key>
+          <Property Name="TYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TYPE_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TYPE_VALUE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TYPE_ALLOWED" Type="bit" />
+        </EntityType>
+        <EntityType Name="Supan_RegionPoints">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_REGIJE" Type="smallint" Nullable="false" />
+          <Property Name="OPIS_REGIJE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Supan_Places_Supan_PlaceTypes">
+          <End Role="Supan_PlaceTypes" Type="Self.Supan_PlaceTypes" Multiplicity="0..1" />
+          <End Role="Supan_Places" Type="Self.Supan_Places" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supan_PlaceTypes">
+              <PropertyRef Name="TYPE_ID" />
+            </Principal>
+            <Dependent Role="Supan_Places">
+              <PropertyRef Name="PLACE_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DOTNET2019ModelStoreContainer">
+          <EntitySet Name="Supan_Places" EntityType="Self.Supan_Places" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supan_PlaceTypes" EntityType="Self.Supan_PlaceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supan_RegionPoints" EntityType="Self.Supan_RegionPoints" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Supan_Places_Supan_PlaceTypes" Association="Self.FK_Supan_Places_Supan_PlaceTypes">
+            <End Role="Supan_PlaceTypes" EntitySet="Supan_PlaceTypes" />
+            <End Role="Supan_Places" EntitySet="Supan_Places" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DOTNET2019Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Supan_PlaceTypes">
+          <Key>
+            <PropertyRef Name="TYPE_ID" />
+          </Key>
+          <Property Name="TYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE_VALUE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Supan_Places" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_PlaceTypes" ToRole="Supan_Places" />
+          <Property Name="TYPE_ALLOWED" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="MapEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Supan_PlaceTypes" EntityType="Self.Supan_PlaceTypes" />
+          <EntitySet Name="Supan_Places" EntityType="DOTNET2019Model.Supan_Places" />
+          <AssociationSet Name="FK_Supan_Places_Supan_PlaceTypes" Association="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes">
+            <End Role="Supan_PlaceTypes" EntitySet="Supan_PlaceTypes" />
+            <End Role="Supan_Places" EntitySet="Supan_Places" />
+          </AssociationSet>
+          <EntitySet Name="Supan_RegionPoints" EntityType="DOTNET2019Model.Supan_RegionPoints" />
+        </EntityContainer>
+        <EntityType Name="Supan_Places">
+          <Key>
+            <PropertyRef Name="PLACE_ID" />
+          </Key>
+          <Property Name="PLACE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PLACE_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PLACE_LAT" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="PLACE_LNG" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="PLACE_TYPE" Type="Int32" />
+          <NavigationProperty Name="Supan_PlaceTypes" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_Places" ToRole="Supan_PlaceTypes" />
+          <Property Name="PLACE_ADDRESS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Supan_Places_Supan_PlaceTypes">
+          <End Type="DOTNET2019Model.Supan_PlaceTypes" Role="Supan_PlaceTypes" Multiplicity="0..1" />
+          <End Type="DOTNET2019Model.Supan_Places" Role="Supan_Places" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supan_PlaceTypes">
+              <PropertyRef Name="TYPE_ID" />
+            </Principal>
+            <Dependent Role="Supan_Places">
+              <PropertyRef Name="PLACE_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Supan_RegionPoints">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_REGIJE" Type="Int16" Nullable="false" />
+          <Property Name="OPIS_REGIJE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LAT" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="LNG" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DOTNET2019ModelStoreContainer" CdmEntityContainer="MapEntities">
+          <EntitySetMapping Name="Supan_PlaceTypes">
+            <EntityTypeMapping TypeName="DOTNET2019Model.Supan_PlaceTypes">
+              <MappingFragment StoreEntitySet="Supan_PlaceTypes">
+                <ScalarProperty Name="TYPE_ALLOWED" ColumnName="TYPE_ALLOWED" />
+                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+                <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
+                <ScalarProperty Name="TYPE_VALUE" ColumnName="TYPE_VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supan_Places">
+            <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Places">
+              <MappingFragment StoreEntitySet="Supan_Places">
+                <ScalarProperty Name="PLACE_ADDRESS" ColumnName="PLACE_ADDRESS" />
+                <ScalarProperty Name="PLACE_TYPE" ColumnName="PLACE_TYPE" />
+                <ScalarProperty Name="PLACE_LNG" ColumnName="PLACE_LNG" />
+                <ScalarProperty Name="PLACE_LAT" ColumnName="PLACE_LAT" />
+                <ScalarProperty Name="PLACE_NAME" ColumnName="PLACE_NAME" />
+                <ScalarProperty Name="PLACE_ID" ColumnName="PLACE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supan_RegionPoints">
+            <EntityTypeMapping TypeName="DOTNET2019Model.Supan_RegionPoints">
+              <MappingFragment StoreEntitySet="Supan_RegionPoints">
+                <ScalarProperty Name="LNG" ColumnName="LNG" />
+                <ScalarProperty Name="LAT" ColumnName="LAT" />
+                <ScalarProperty Name="OPIS_REGIJE" ColumnName="OPIS_REGIJE" />
+                <ScalarProperty Name="ID_REGIJE" ColumnName="ID_REGIJE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

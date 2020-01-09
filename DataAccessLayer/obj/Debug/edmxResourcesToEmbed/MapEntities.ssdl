@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DOTNET2019Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Supan_Places">
+    <Key>
+      <PropertyRef Name="PLACE_ID" />
+    </Key>
+    <Property Name="PLACE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PLACE_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PLACE_LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+    <Property Name="PLACE_LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+    <Property Name="PLACE_TYPE" Type="int" />
+    <Property Name="PLACE_ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supan_PlaceTypes">
+    <Key>
+      <PropertyRef Name="TYPE_ID" />
+    </Key>
+    <Property Name="TYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TYPE_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TYPE_VALUE" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TYPE_ALLOWED" Type="bit" />
+  </EntityType>
+  <EntityType Name="Supan_RegionPoints">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_REGIJE" Type="smallint" Nullable="false" />
+    <Property Name="OPIS_REGIJE" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+    <Property Name="LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Supan_Places_Supan_PlaceTypes">
+    <End Role="Supan_PlaceTypes" Type="Self.Supan_PlaceTypes" Multiplicity="0..1" />
+    <End Role="Supan_Places" Type="Self.Supan_Places" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supan_PlaceTypes">
+        <PropertyRef Name="TYPE_ID" />
+      </Principal>
+      <Dependent Role="Supan_Places">
+        <PropertyRef Name="PLACE_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DOTNET2019ModelStoreContainer">
+    <EntitySet Name="Supan_Places" EntityType="Self.Supan_Places" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supan_PlaceTypes" EntityType="Self.Supan_PlaceTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supan_RegionPoints" EntityType="Self.Supan_RegionPoints" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Supan_Places_Supan_PlaceTypes" Association="Self.FK_Supan_Places_Supan_PlaceTypes">
+      <End Role="Supan_PlaceTypes" EntitySet="Supan_PlaceTypes" />
+      <End Role="Supan_Places" EntitySet="Supan_Places" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

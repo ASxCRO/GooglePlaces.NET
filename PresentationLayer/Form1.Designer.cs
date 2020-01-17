@@ -28,28 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.currentLngTextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.currentLatTextBox = new System.Windows.Forms.TextBox();
+            this.polyPointsReadyTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.startLocationBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchOnlyInPolygon = new System.Windows.Forms.CheckBox();
+            this.typeCombo = new System.Windows.Forms.ComboBox();
+            this.radiusBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.removeButton = new System.Windows.Forms.Button();
+            this.polyBox = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.polyCombo = new System.Windows.Forms.ComboBox();
             this.btnAddPointToPoly = new System.Windows.Forms.Button();
             this.btnAddPoly = new System.Windows.Forms.Button();
-            this.removeButton = new System.Windows.Forms.Button();
-            this.searchButton = new System.Windows.Forms.Button();
-            this.radiusBox = new System.Windows.Forms.TextBox();
-            this.startLocationBox = new System.Windows.Forms.TextBox();
-            this.typeCombo = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.dataGridViewSearchedPlaces = new System.Windows.Forms.DataGridView();
             this.locationName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Adresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lng = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.savedLocationsTab = new System.Windows.Forms.TabPage();
+            this.dataGridViewSavedPolygons = new System.Windows.Forms.DataGridView();
+            this.label14 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridViewSavedLocations = new System.Windows.Forms.DataGridView();
             this.placeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,16 +83,23 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewAdministration = new System.Windows.Forms.DataGridView();
             this.typeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.searchOnlyInPolygon = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.RegionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OpisRegije = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.searchLocationsInGridBox = new System.Windows.Forms.TextBox();
+            this.searchPolygonsInGridBox = new System.Windows.Forms.TextBox();
+            this.btnSearchPolygonsInGrid = new System.Windows.Forms.Button();
+            this.btnSearchLocationsInGrid = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.mapTab.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.polyBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedPlaces)).BeginInit();
             this.savedLocationsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedPolygons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedLocations)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAdministration)).BeginInit();
@@ -107,6 +134,8 @@
             this.gmap.TabIndex = 1;
             this.gmap.Zoom = 7D;
             this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
+            this.gmap.OnPolygonDoubleClick += new GMap.NET.WindowsForms.PolygonDoubleClick(this.gmap_OnPolygonDoubleClick);
+            this.gmap.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.gmap_OnMapZoomChanged);
             this.gmap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gmap_MouseClick);
             // 
             // tabControl1
@@ -123,25 +152,12 @@
             // mapTab
             // 
             this.mapTab.BackColor = System.Drawing.Color.Transparent;
-            this.mapTab.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mapTab.BackgroundImage")));
             this.mapTab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.mapTab.Controls.Add(this.button5);
-            this.mapTab.Controls.Add(this.button4);
-            this.mapTab.Controls.Add(this.button3);
-            this.mapTab.Controls.Add(this.button2);
+            this.mapTab.Controls.Add(this.groupBox3);
+            this.mapTab.Controls.Add(this.groupBox2);
+            this.mapTab.Controls.Add(this.groupBox1);
+            this.mapTab.Controls.Add(this.polyBox);
             this.mapTab.Controls.Add(this.button1);
-            this.mapTab.Controls.Add(this.searchOnlyInPolygon);
-            this.mapTab.Controls.Add(this.btnAddPointToPoly);
-            this.mapTab.Controls.Add(this.btnAddPoly);
-            this.mapTab.Controls.Add(this.removeButton);
-            this.mapTab.Controls.Add(this.searchButton);
-            this.mapTab.Controls.Add(this.radiusBox);
-            this.mapTab.Controls.Add(this.startLocationBox);
-            this.mapTab.Controls.Add(this.typeCombo);
-            this.mapTab.Controls.Add(this.label4);
-            this.mapTab.Controls.Add(this.label3);
-            this.mapTab.Controls.Add(this.label2);
-            this.mapTab.Controls.Add(this.label1);
             this.mapTab.Controls.Add(this.dataGridViewSearchedPlaces);
             this.mapTab.Controls.Add(this.gmap);
             this.mapTab.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -152,13 +168,286 @@
             this.mapTab.TabIndex = 0;
             this.mapTab.Text = "Pretraga lokacija";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.currentLngTextBox);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.currentLatTextBox);
+            this.groupBox3.Controls.Add(this.polyPointsReadyTextBox);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Location = new System.Drawing.Point(776, 298);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(432, 87);
+            this.groupBox3.TabIndex = 18;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Informacije";
+            // 
+            // currentLngTextBox
+            // 
+            this.currentLngTextBox.Location = new System.Drawing.Point(143, 61);
+            this.currentLngTextBox.Name = "currentLngTextBox";
+            this.currentLngTextBox.Size = new System.Drawing.Size(283, 20);
+            this.currentLngTextBox.TabIndex = 21;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label13.Location = new System.Drawing.Point(111, 56);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(26, 16);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "Lng";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label12.Location = new System.Drawing.Point(112, 37);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(25, 16);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "Lat";
+            // 
+            // currentLatTextBox
+            // 
+            this.currentLatTextBox.Location = new System.Drawing.Point(143, 37);
+            this.currentLatTextBox.Name = "currentLatTextBox";
+            this.currentLatTextBox.Size = new System.Drawing.Size(283, 20);
+            this.currentLatTextBox.TabIndex = 18;
+            // 
+            // polyPointsReadyTextBox
+            // 
+            this.polyPointsReadyTextBox.Location = new System.Drawing.Point(263, 12);
+            this.polyPointsReadyTextBox.Name = "polyPointsReadyTextBox";
+            this.polyPointsReadyTextBox.Size = new System.Drawing.Size(163, 20);
+            this.polyPointsReadyTextBox.TabIndex = 17;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label11.Location = new System.Drawing.Point(6, 35);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(111, 16);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "Trenutna lokacija: ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label10.Location = new System.Drawing.Point(6, 12);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(251, 16);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Trenutno točaka spremno za crtanje poligona";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.startLocationBox);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.searchButton);
+            this.groupBox2.Controls.Add(this.searchOnlyInPolygon);
+            this.groupBox2.Controls.Add(this.typeCombo);
+            this.groupBox2.Controls.Add(this.radiusBox);
+            this.groupBox2.Location = new System.Drawing.Point(756, 7);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(465, 128);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Filtriraj lokacije";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Red;
+            this.label16.Location = new System.Drawing.Point(35, 31);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 14);
+            this.label16.TabIndex = 17;
+            this.label16.Text = "Kliknite na mapu";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 19);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Početna lokacija";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(6, 45);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 19);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Tip lokacije";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(6, 71);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 19);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Radius (m)";
+            // 
+            // startLocationBox
+            // 
+            this.startLocationBox.Location = new System.Drawing.Point(119, 15);
+            this.startLocationBox.Name = "startLocationBox";
+            this.startLocationBox.Size = new System.Drawing.Size(206, 20);
+            this.startLocationBox.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label1.Location = new System.Drawing.Point(336, 90);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 19);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Pretraži lokacije";
+            // 
+            // searchButton
+            // 
+            this.searchButton.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
+            this.searchButton.Location = new System.Drawing.Point(331, 14);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(125, 73);
+            this.searchButton.TabIndex = 3;
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchOnlyInPolygon
+            // 
+            this.searchOnlyInPolygon.AutoSize = true;
+            this.searchOnlyInPolygon.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
+            this.searchOnlyInPolygon.Location = new System.Drawing.Point(119, 99);
+            this.searchOnlyInPolygon.Name = "searchOnlyInPolygon";
+            this.searchOnlyInPolygon.Size = new System.Drawing.Size(183, 23);
+            this.searchOnlyInPolygon.TabIndex = 12;
+            this.searchOnlyInPolygon.Text = "Pretraži samo u poligonu";
+            this.searchOnlyInPolygon.UseVisualStyleBackColor = true;
+            // 
+            // typeCombo
+            // 
+            this.typeCombo.FormattingEnabled = true;
+            this.typeCombo.Location = new System.Drawing.Point(119, 43);
+            this.typeCombo.Name = "typeCombo";
+            this.typeCombo.Size = new System.Drawing.Size(206, 21);
+            this.typeCombo.TabIndex = 7;
+            // 
+            // radiusBox
+            // 
+            this.radiusBox.Location = new System.Drawing.Point(119, 70);
+            this.radiusBox.Name = "radiusBox";
+            this.radiusBox.Size = new System.Drawing.Size(206, 20);
+            this.radiusBox.TabIndex = 9;
+            this.radiusBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radiusBox_KeyPress);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.removeButton);
+            this.groupBox1.Location = new System.Drawing.Point(1046, 149);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(168, 143);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Resetiraj mapu";
+            // 
+            // removeButton
+            // 
+            this.removeButton.Image = ((System.Drawing.Image)(resources.GetObject("removeButton.Image")));
+            this.removeButton.Location = new System.Drawing.Point(17, 19);
+            this.removeButton.Name = "removeButton";
+            this.removeButton.Size = new System.Drawing.Size(145, 118);
+            this.removeButton.TabIndex = 10;
+            this.removeButton.UseVisualStyleBackColor = true;
+            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            // 
+            // polyBox
+            // 
+            this.polyBox.Controls.Add(this.label15);
+            this.polyBox.Controls.Add(this.label9);
+            this.polyBox.Controls.Add(this.label8);
+            this.polyBox.Controls.Add(this.polyCombo);
+            this.polyBox.Controls.Add(this.btnAddPointToPoly);
+            this.polyBox.Controls.Add(this.btnAddPoly);
+            this.polyBox.Location = new System.Drawing.Point(773, 141);
+            this.polyBox.Name = "polyBox";
+            this.polyBox.Size = new System.Drawing.Size(264, 151);
+            this.polyBox.TabIndex = 15;
+            this.polyBox.TabStop = false;
+            this.polyBox.Text = "Poligon";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(67, 46);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(174, 14);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Ostaviti prazno pri crtanju sa točkama";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label9.Location = new System.Drawing.Point(151, 129);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(90, 16);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Nacrtaj poligon";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label8.Location = new System.Drawing.Point(16, 77);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(121, 16);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Dodaj graničku točku";
+            // 
+            // polyCombo
+            // 
+            this.polyCombo.FormattingEnabled = true;
+            this.polyCombo.Location = new System.Drawing.Point(19, 22);
+            this.polyCombo.Name = "polyCombo";
+            this.polyCombo.Size = new System.Drawing.Size(222, 21);
+            this.polyCombo.TabIndex = 13;
+            // 
             // btnAddPointToPoly
             // 
             this.btnAddPointToPoly.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPointToPoly.BackgroundImage")));
             this.btnAddPointToPoly.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnAddPointToPoly.Location = new System.Drawing.Point(1138, 3);
+            this.btnAddPointToPoly.Location = new System.Drawing.Point(19, 96);
             this.btnAddPointToPoly.Name = "btnAddPointToPoly";
-            this.btnAddPointToPoly.Size = new System.Drawing.Size(70, 62);
+            this.btnAddPointToPoly.Size = new System.Drawing.Size(70, 49);
             this.btnAddPointToPoly.TabIndex = 11;
             this.btnAddPointToPoly.UseVisualStyleBackColor = true;
             this.btnAddPointToPoly.Click += new System.EventHandler(this.btnAddPointToPoly_Click);
@@ -167,96 +456,22 @@
             // 
             this.btnAddPoly.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPoly.BackgroundImage")));
             this.btnAddPoly.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnAddPoly.Location = new System.Drawing.Point(986, 200);
+            this.btnAddPoly.Location = new System.Drawing.Point(171, 77);
             this.btnAddPoly.Name = "btnAddPoly";
-            this.btnAddPoly.Size = new System.Drawing.Size(70, 62);
+            this.btnAddPoly.Size = new System.Drawing.Size(70, 49);
             this.btnAddPoly.TabIndex = 3;
             this.btnAddPoly.UseVisualStyleBackColor = true;
             this.btnAddPoly.Click += new System.EventHandler(this.btnAddPoly_Click);
             // 
-            // removeButton
+            // button1
             // 
-            this.removeButton.Image = ((System.Drawing.Image)(resources.GetObject("removeButton.Image")));
-            this.removeButton.Location = new System.Drawing.Point(1062, 200);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(70, 62);
-            this.removeButton.TabIndex = 10;
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // searchButton
-            // 
-            this.searchButton.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
-            this.searchButton.Location = new System.Drawing.Point(1138, 200);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(70, 62);
-            this.searchButton.TabIndex = 3;
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
-            // radiusBox
-            // 
-            this.radiusBox.Location = new System.Drawing.Point(926, 128);
-            this.radiusBox.Name = "radiusBox";
-            this.radiusBox.Size = new System.Drawing.Size(282, 20);
-            this.radiusBox.TabIndex = 9;
-            this.radiusBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.radiusBox_KeyPress);
-            // 
-            // startLocationBox
-            // 
-            this.startLocationBox.Location = new System.Drawing.Point(926, 75);
-            this.startLocationBox.Name = "startLocationBox";
-            this.startLocationBox.Size = new System.Drawing.Size(282, 20);
-            this.startLocationBox.TabIndex = 8;
-            // 
-            // typeCombo
-            // 
-            this.typeCombo.FormattingEnabled = true;
-            this.typeCombo.Location = new System.Drawing.Point(926, 101);
-            this.typeCombo.Name = "typeCombo";
-            this.typeCombo.Size = new System.Drawing.Size(282, 21);
-            this.typeCombo.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(752, 129);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(175, 19);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Maksimalna udaljenost (m)";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(837, 103);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 19);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Tip lokacije";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(809, 76);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 19);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Početna lokacija";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(900, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 30);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Pretraži lokacije";
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button1.Location = new System.Drawing.Point(926, 190);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(70, 62);
+            this.button1.TabIndex = 14;
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // dataGridViewSearchedPlaces
             // 
@@ -271,17 +486,17 @@
             this.Adresa,
             this.Lat,
             this.Lng});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.MenuBar;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(746, 274);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.MenuBar;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(746, 391);
             this.dataGridViewSearchedPlaces.Name = "dataGridViewSearchedPlaces";
-            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(471, 350);
+            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(471, 233);
             this.dataGridViewSearchedPlaces.TabIndex = 2;
             this.dataGridViewSearchedPlaces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedPlaces_CellContentClick);
             // 
@@ -322,6 +537,14 @@
             // 
             // savedLocationsTab
             // 
+            this.savedLocationsTab.Controls.Add(this.btnSearchLocationsInGrid);
+            this.savedLocationsTab.Controls.Add(this.btnSearchPolygonsInGrid);
+            this.savedLocationsTab.Controls.Add(this.searchPolygonsInGridBox);
+            this.savedLocationsTab.Controls.Add(this.searchLocationsInGridBox);
+            this.savedLocationsTab.Controls.Add(this.label18);
+            this.savedLocationsTab.Controls.Add(this.label17);
+            this.savedLocationsTab.Controls.Add(this.dataGridViewSavedPolygons);
+            this.savedLocationsTab.Controls.Add(this.label14);
             this.savedLocationsTab.Controls.Add(this.label6);
             this.savedLocationsTab.Controls.Add(this.dataGridViewSavedLocations);
             this.savedLocationsTab.Location = new System.Drawing.Point(4, 22);
@@ -329,8 +552,34 @@
             this.savedLocationsTab.Padding = new System.Windows.Forms.Padding(3);
             this.savedLocationsTab.Size = new System.Drawing.Size(1217, 624);
             this.savedLocationsTab.TabIndex = 1;
-            this.savedLocationsTab.Text = "Spremljene lokacije";
+            this.savedLocationsTab.Text = "Spremljene lokacije / poligoni";
             this.savedLocationsTab.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewSavedPolygons
+            // 
+            this.dataGridViewSavedPolygons.AllowUserToAddRows = false;
+            this.dataGridViewSavedPolygons.AllowUserToDeleteRows = false;
+            this.dataGridViewSavedPolygons.AllowUserToResizeColumns = false;
+            this.dataGridViewSavedPolygons.AllowUserToResizeRows = false;
+            this.dataGridViewSavedPolygons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSavedPolygons.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RegionName,
+            this.OpisRegije});
+            this.dataGridViewSavedPolygons.Location = new System.Drawing.Point(-4, 382);
+            this.dataGridViewSavedPolygons.Name = "dataGridViewSavedPolygons";
+            this.dataGridViewSavedPolygons.Size = new System.Drawing.Size(1011, 232);
+            this.dataGridViewSavedPolygons.TabIndex = 4;
+            this.dataGridViewSavedPolygons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSavedPolygons_CellContentClick);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Perpetua Titling MT", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(23, 311);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(236, 23);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "SPREMLJENI POLIGONI";
             // 
             // label6
             // 
@@ -355,9 +604,9 @@
             this.placeAddress,
             this.latitude,
             this.longitude});
-            this.dataGridViewSavedLocations.Location = new System.Drawing.Point(3, 62);
+            this.dataGridViewSavedLocations.Location = new System.Drawing.Point(3, 76);
             this.dataGridViewSavedLocations.Name = "dataGridViewSavedLocations";
-            this.dataGridViewSavedLocations.Size = new System.Drawing.Size(1211, 559);
+            this.dataGridViewSavedLocations.Size = new System.Drawing.Size(1000, 231);
             this.dataGridViewSavedLocations.TabIndex = 0;
             this.dataGridViewSavedLocations.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSavedLocations_CellContentClick);
             // 
@@ -473,71 +722,83 @@
             this.typeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.typeName.Width = 200;
             // 
-            // searchOnlyInPolygon
+            // RegionName
             // 
-            this.searchOnlyInPolygon.AutoSize = true;
-            this.searchOnlyInPolygon.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.searchOnlyInPolygon.Location = new System.Drawing.Point(926, 154);
-            this.searchOnlyInPolygon.Name = "searchOnlyInPolygon";
-            this.searchOnlyInPolygon.Size = new System.Drawing.Size(183, 23);
-            this.searchOnlyInPolygon.TabIndex = 12;
-            this.searchOnlyInPolygon.Text = "Pretraži samo u poligonu";
-            this.searchOnlyInPolygon.UseVisualStyleBackColor = true;
+            this.RegionName.DataPropertyName = "NAZIV_REGIJE";
+            this.RegionName.HeaderText = "Naziv";
+            this.RegionName.Name = "RegionName";
+            this.RegionName.ReadOnly = true;
+            this.RegionName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.RegionName.Width = 200;
             // 
-            // button1
+            // OpisRegije
             // 
-            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(855, 229);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Slavonija";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.drawSlavonijaRegion);
+            this.OpisRegije.DataPropertyName = "OPIS_REGIJE";
+            this.OpisRegije.HeaderText = "Opis";
+            this.OpisRegije.Name = "OpisRegije";
+            this.OpisRegije.ReadOnly = true;
+            this.OpisRegije.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.OpisRegije.Width = 500;
             // 
-            // button2
+            // label17
             // 
-            this.button2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(855, 200);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "SredišnjaRH";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.drawSredRHRegion);
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label17.Location = new System.Drawing.Point(524, 338);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(179, 19);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Pretraži poligone po nazivu";
             // 
-            // button3
+            // label18
             // 
-            this.button3.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button3.Location = new System.Drawing.Point(752, 229);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 23);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Istra";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.drawIstraRegion);
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label18.Location = new System.Drawing.Point(535, 26);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(174, 19);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Pretraži lokacije po gradu";
             // 
-            // button4
+            // searchLocationsInGridBox
             // 
-            this.button4.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button4.Location = new System.Drawing.Point(752, 200);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(97, 23);
-            this.button4.TabIndex = 16;
-            this.button4.Text = "Primorje";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.drawPrimorjeRegion);
+            this.searchLocationsInGridBox.Location = new System.Drawing.Point(709, 25);
+            this.searchLocationsInGridBox.Name = "searchLocationsInGridBox";
+            this.searchLocationsInGridBox.Size = new System.Drawing.Size(222, 20);
+            this.searchLocationsInGridBox.TabIndex = 7;
             // 
-            // button5
+            // searchPolygonsInGridBox
             // 
-            this.button5.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(752, 174);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(97, 23);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Dalmacija";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.drawDalmacijaRegion);
+            this.searchPolygonsInGridBox.Location = new System.Drawing.Point(709, 337);
+            this.searchPolygonsInGridBox.Name = "searchPolygonsInGridBox";
+            this.searchPolygonsInGridBox.Size = new System.Drawing.Size(222, 20);
+            this.searchPolygonsInGridBox.TabIndex = 8;
+            // 
+            // btnSearchPolygonsInGrid
+            // 
+            this.btnSearchPolygonsInGrid.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchPolygonsInGrid.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchPolygonsInGrid.Image")));
+            this.btnSearchPolygonsInGrid.Location = new System.Drawing.Point(937, 313);
+            this.btnSearchPolygonsInGrid.Name = "btnSearchPolygonsInGrid";
+            this.btnSearchPolygonsInGrid.Size = new System.Drawing.Size(66, 63);
+            this.btnSearchPolygonsInGrid.TabIndex = 10;
+            this.btnSearchPolygonsInGrid.UseVisualStyleBackColor = true;
+            this.btnSearchPolygonsInGrid.Click += new System.EventHandler(this.btnSearchPolygonsInGrid_Click);
+            this.btnSearchPolygonsInGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSearchPolygonsInGrid_KeyDown);
+            // 
+            // btnSearchLocationsInGrid
+            // 
+            this.btnSearchLocationsInGrid.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchLocationsInGrid.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchLocationsInGrid.Image")));
+            this.btnSearchLocationsInGrid.Location = new System.Drawing.Point(937, 6);
+            this.btnSearchLocationsInGrid.Name = "btnSearchLocationsInGrid";
+            this.btnSearchLocationsInGrid.Size = new System.Drawing.Size(66, 63);
+            this.btnSearchLocationsInGrid.TabIndex = 11;
+            this.btnSearchLocationsInGrid.UseVisualStyleBackColor = true;
+            this.btnSearchLocationsInGrid.Click += new System.EventHandler(this.btnSearchLocationsInGrid_Click);
+            this.btnSearchLocationsInGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSearchLocationsInGrid_KeyDown);
             // 
             // Form1
             // 
@@ -552,10 +813,17 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.mapTab.ResumeLayout(false);
-            this.mapTab.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.polyBox.ResumeLayout(false);
+            this.polyBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedPlaces)).EndInit();
             this.savedLocationsTab.ResumeLayout(false);
             this.savedLocationsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedPolygons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedLocations)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -599,11 +867,33 @@
         private System.Windows.Forms.Button btnAddPoly;
         private System.Windows.Forms.Button btnAddPointToPoly;
         private System.Windows.Forms.CheckBox searchOnlyInPolygon;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox polyBox;
+        private System.Windows.Forms.ComboBox polyCombo;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox currentLngTextBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox currentLatTextBox;
+        private System.Windows.Forms.TextBox polyPointsReadyTextBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridView dataGridViewSavedPolygons;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RegionName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OpisRegije;
+        private System.Windows.Forms.TextBox searchPolygonsInGridBox;
+        private System.Windows.Forms.TextBox searchLocationsInGridBox;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btnSearchLocationsInGrid;
+        private System.Windows.Forms.Button btnSearchPolygonsInGrid;
     }
 }
 

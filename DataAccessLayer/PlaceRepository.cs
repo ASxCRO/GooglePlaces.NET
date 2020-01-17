@@ -20,14 +20,16 @@ namespace DataAccessLayer
                 sType = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_ID == type).Select(t => t.TYPE_VALUE).FirstOrDefault().ToString();
  
             }
+            string Lat = Convert.ToString(lat).Replace(',', '.');
+            string Lng = Convert.ToString(lng).Replace(',', '.');
             var url =
                 "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
-                + lat
+                + Lat
                 + ","
-                + lng
+                + Lng
                 + "&radius=" + radius
                 + "&type=" + sType
-                + "&key=AIzaSyAbH2_wC74VAkk8SY-MD21MmPE9ZWzkkWg";
+                + "&key=AIzaSyBSuPs2jtLhJs-9BHt-4iIZhABawlJvHhs";
 
             return url;
         }

@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="DOTNET2019Model.Supan_Places" Width="1.5" PointX="3.5" PointY="0.5" />
         <AssociationConnector Association="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" />
         <EntityTypeShape EntityType="DOTNET2019Model.Supan_RegionPoints" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DOTNET2019Model.Supan_Regions" Width="1.5" PointX="3.375" PointY="3.75" />
+        <AssociationConnector Association="DOTNET2019Model.FK_Supan_RegionPoints_Supan_Regions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

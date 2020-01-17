@@ -81,19 +81,37 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditPlace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditPlace.Designer.cs">
+      <DependentUpon>FormEditPlace.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSavePlace.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormSavePlace.Designer.cs">
       <DependentUpon>FormSavePlace.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSavePolygon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSavePolygon.Designer.cs">
+      <DependentUpon>FormSavePolygon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormEditPlace.resx">
+      <DependentUpon>FormEditPlace.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSavePlace.resx">
       <DependentUpon>FormSavePlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSavePolygon.resx">
+      <DependentUpon>FormSavePolygon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -124,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\addType.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\removeType.png">

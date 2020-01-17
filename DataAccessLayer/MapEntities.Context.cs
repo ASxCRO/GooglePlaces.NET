@@ -28,5 +28,6 @@ namespace DataAccessLayer
         public virtual DbSet<Supan_PlaceTypes> Supan_PlaceTypes { get; set; }
         public virtual DbSet<Supan_Places> Supan_Places { get; set; }
         public virtual DbSet<Supan_RegionPoints> Supan_RegionPoints { get; set; }
+        public virtual DbSet<Supan_Regions> Supan_Regions { get; set; }
     }
 }

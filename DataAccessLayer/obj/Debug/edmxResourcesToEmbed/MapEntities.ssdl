@@ -26,9 +26,16 @@
     </Key>
     <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_REGIJE" Type="smallint" Nullable="false" />
-    <Property Name="OPIS_REGIJE" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
     <Property Name="LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supan_Regions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAZIV_REGIJE" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OPIS_REGIJE" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Supan_Places_Supan_PlaceTypes">
     <End Role="Supan_PlaceTypes" Type="Self.Supan_PlaceTypes" Multiplicity="0..1" />
@@ -42,13 +49,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Supan_RegionPoints_Supan_Regions">
+    <End Role="Supan_Regions" Type="Self.Supan_Regions" Multiplicity="1" />
+    <End Role="Supan_RegionPoints" Type="Self.Supan_RegionPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supan_Regions">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Supan_RegionPoints">
+        <PropertyRef Name="ID_REGIJE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DOTNET2019ModelStoreContainer">
     <EntitySet Name="Supan_Places" EntityType="Self.Supan_Places" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supan_PlaceTypes" EntityType="Self.Supan_PlaceTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supan_RegionPoints" EntityType="Self.Supan_RegionPoints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supan_Regions" EntityType="Self.Supan_Regions" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Supan_Places_Supan_PlaceTypes" Association="Self.FK_Supan_Places_Supan_PlaceTypes">
       <End Role="Supan_PlaceTypes" EntitySet="Supan_PlaceTypes" />
       <End Role="Supan_Places" EntitySet="Supan_Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supan_RegionPoints_Supan_Regions" Association="Self.FK_Supan_RegionPoints_Supan_Regions">
+      <End Role="Supan_Regions" EntitySet="Supan_Regions" />
+      <End Role="Supan_RegionPoints" EntitySet="Supan_RegionPoints" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

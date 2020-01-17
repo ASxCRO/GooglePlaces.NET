@@ -16,8 +16,9 @@ namespace DataAccessLayer
     {
         public short ID { get; set; }
         public short ID_REGIJE { get; set; }
-        public string OPIS_REGIJE { get; set; }
         public decimal LAT { get; set; }
         public decimal LNG { get; set; }
+    
+        public virtual Supan_Regions Supan_Regions { get; set; }
     }
 }

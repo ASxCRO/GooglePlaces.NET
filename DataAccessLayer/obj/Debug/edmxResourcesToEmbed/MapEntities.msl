@@ -28,8 +28,16 @@
         <MappingFragment StoreEntitySet="Supan_RegionPoints">
           <ScalarProperty Name="LNG" ColumnName="LNG" />
           <ScalarProperty Name="LAT" ColumnName="LAT" />
-          <ScalarProperty Name="OPIS_REGIJE" ColumnName="OPIS_REGIJE" />
           <ScalarProperty Name="ID_REGIJE" ColumnName="ID_REGIJE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supan_Regions">
+      <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Regions">
+        <MappingFragment StoreEntitySet="Supan_Regions">
+          <ScalarProperty Name="OPIS_REGIJE" ColumnName="OPIS_REGIJE" />
+          <ScalarProperty Name="NAZIV_REGIJE" ColumnName="NAZIV_REGIJE" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

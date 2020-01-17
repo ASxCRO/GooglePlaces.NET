@@ -29,3 +29,6 @@ C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\Presenta
 C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\PresentationLayer.csproj.CopyComplete
 C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\PresentationLayer.exe
 C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\PresentationLayer.pdb
+C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\PresentationLayer.FormSavePolygon.resources
+C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\bin\Debug\images\edit.png
+C:\Users\Korisnik\source\repos\GooglePlaces\PresentationLayer\obj\Debug\PresentationLayer.FormEditPlace.resources

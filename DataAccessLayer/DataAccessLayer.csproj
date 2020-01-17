@@ -78,6 +78,9 @@
     <Compile Include="Supan_RegionPoints.cs">
       <DependentUpon>MapEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Supan_Regions.cs">
+      <DependentUpon>MapEntities.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MapEntities.edmx">

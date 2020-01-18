@@ -87,6 +87,12 @@
     <Compile Include="FormEditPlace.Designer.cs">
       <DependentUpon>FormEditPlace.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditPoly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditPoly.Designer.cs">
+      <DependentUpon>FormEditPoly.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSavePlace.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,7 @@
     <Compile Include="FormSavePolygon.Designer.cs">
       <DependentUpon>FormSavePolygon.cs</DependentUpon>
     </Compile>
+    <Compile Include="MoreLinq\MoreEnumerable.DistinctBy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -106,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditPlace.resx">
       <DependentUpon>FormEditPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditPoly.resx">
+      <DependentUpon>FormEditPoly.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSavePlace.resx">
       <DependentUpon>FormSavePlace.cs</DependentUpon>

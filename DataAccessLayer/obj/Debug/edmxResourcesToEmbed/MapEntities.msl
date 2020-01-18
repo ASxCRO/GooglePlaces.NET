@@ -14,6 +14,7 @@
     <EntitySetMapping Name="Supan_Places">
       <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Places">
         <MappingFragment StoreEntitySet="Supan_Places">
+          <ScalarProperty Name="PLACE_DESCRIPTION" ColumnName="PLACE_DESCRIPTION" />
           <ScalarProperty Name="PLACE_ADDRESS" ColumnName="PLACE_ADDRESS" />
           <ScalarProperty Name="PLACE_TYPE" ColumnName="PLACE_TYPE" />
           <ScalarProperty Name="PLACE_LNG" ColumnName="PLACE_LNG" />

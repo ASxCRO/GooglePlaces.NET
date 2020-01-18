@@ -38,7 +38,8 @@ namespace DataAccessLayer
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
             webrequest.Method = "GET";
-            webrequest.ContentType = "application/x-www-form-urlencoded";
+            //webrequest.ContentType = "application/x-www-form-urlencoded";
+            webrequest.ContentType = "application/json";
             HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
             Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
@@ -58,6 +59,7 @@ namespace DataAccessLayer
 
             foreach (JObject place in results)
             {
+
                 _googlePlaces.Add(
                     new Supan_Places
                     {

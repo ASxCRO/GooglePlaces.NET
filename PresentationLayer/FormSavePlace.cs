@@ -33,6 +33,7 @@ namespace PresentationLayer
                     }
                     else
                     {
+                        place.PLACE_DESCRIPTION = placeOpisBox.Text;
                         mapDB.Supan_Places.Add(place);
                         mapDB.SaveChanges();
                         MessageBox.Show("Uspješno ste spremili lokaciju. Spremljena lokacija nalazi se pod opcijom 'Spremljene lokacije'.");

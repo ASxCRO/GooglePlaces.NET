@@ -15,6 +15,7 @@
           <Property Name="PLACE_LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
           <Property Name="PLACE_TYPE" Type="int" />
           <Property Name="PLACE_ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PLACE_DESCRIPTION" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Supan_PlaceTypes">
           <Key>
@@ -119,6 +120,7 @@
           <Property Name="PLACE_TYPE" Type="Int32" />
           <NavigationProperty Name="Supan_PlaceTypes" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_Places" ToRole="Supan_PlaceTypes" />
           <Property Name="PLACE_ADDRESS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PLACE_DESCRIPTION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Supan_Places_Supan_PlaceTypes">
           <End Type="DOTNET2019Model.Supan_PlaceTypes" Role="Supan_PlaceTypes" Multiplicity="0..1" />
@@ -182,6 +184,7 @@
           <EntitySetMapping Name="Supan_Places">
             <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Places">
               <MappingFragment StoreEntitySet="Supan_Places">
+                <ScalarProperty Name="PLACE_DESCRIPTION" ColumnName="PLACE_DESCRIPTION" />
                 <ScalarProperty Name="PLACE_ADDRESS" ColumnName="PLACE_ADDRESS" />
                 <ScalarProperty Name="PLACE_TYPE" ColumnName="PLACE_TYPE" />
                 <ScalarProperty Name="PLACE_LNG" ColumnName="PLACE_LNG" />

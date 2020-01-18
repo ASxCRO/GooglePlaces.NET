@@ -10,6 +10,7 @@
     <Property Name="PLACE_LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
     <Property Name="PLACE_TYPE" Type="int" />
     <Property Name="PLACE_ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PLACE_DESCRIPTION" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="Supan_PlaceTypes">
     <Key>

@@ -20,6 +20,7 @@ namespace DataAccessLayer
         public decimal PLACE_LNG { get; set; }
         public Nullable<int> PLACE_TYPE { get; set; }
         public string PLACE_ADDRESS { get; set; }
+        public string PLACE_DESCRIPTION { get; set; }
     
         public virtual Supan_PlaceTypes Supan_PlaceTypes { get; set; }
     }

@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
@@ -98,7 +99,7 @@
             this.placeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.latitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.administrationTab = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -109,6 +110,24 @@
             this.label25 = new System.Windows.Forms.Label();
             this.dataGridViewAdministration = new System.Windows.Forms.DataGridView();
             this.typeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pretražiLokacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pretražiLokacijeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.spremljeneLokacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spremljeniPoligoniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administracijaTipovaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iZLAZToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.opcijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pretražiLokacijeToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.spremljeneLokacijeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.spremljeniPoligoniToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.administracijaTipovaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.izlazToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.uputeZaKorištenjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oProgramuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -122,9 +141,11 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedPolygons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedLocations)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.administrationTab.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAdministration)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gmap
@@ -153,7 +174,7 @@
             this.gmap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gmap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gmap.ShowTileGridLines = false;
-            this.gmap.Size = new System.Drawing.Size(729, 599);
+            this.gmap.Size = new System.Drawing.Size(729, 635);
             this.gmap.TabIndex = 1;
             this.gmap.Zoom = 5D;
             this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
@@ -165,15 +186,15 @@
             // 
             this.tabControl1.Controls.Add(this.mapTab);
             this.tabControl1.Controls.Add(this.savedLocationsTab);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.administrationTab);
             this.tabControl1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.ItemSize = new System.Drawing.Size(100, 21);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 23);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1225, 650);
+            this.tabControl1.Size = new System.Drawing.Size(1225, 676);
             this.tabControl1.TabIndex = 2;
             // 
             // mapTab
@@ -193,7 +214,7 @@
             this.mapTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mapTab.Name = "mapTab";
             this.mapTab.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.mapTab.Size = new System.Drawing.Size(1217, 621);
+            this.mapTab.Size = new System.Drawing.Size(1217, 647);
             this.mapTab.TabIndex = 0;
             this.mapTab.Text = "Pretraga lokacija";
             // 
@@ -593,18 +614,18 @@
             this.Adresa,
             this.Lat,
             this.Lng});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.MenuBar;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.MenuBar;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(746, 391);
             this.dataGridViewSearchedPlaces.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewSearchedPlaces.Name = "dataGridViewSearchedPlaces";
-            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(466, 233);
+            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(466, 250);
             this.dataGridViewSearchedPlaces.TabIndex = 2;
             this.dataGridViewSearchedPlaces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedPlaces_CellContentClick);
             // 
@@ -661,7 +682,7 @@
             this.savedLocationsTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.savedLocationsTab.Name = "savedLocationsTab";
             this.savedLocationsTab.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.savedLocationsTab.Size = new System.Drawing.Size(1217, 621);
+            this.savedLocationsTab.Size = new System.Drawing.Size(1217, 647);
             this.savedLocationsTab.TabIndex = 1;
             this.savedLocationsTab.Text = "Spremljene lokacije / poligoni";
             // 
@@ -1003,20 +1024,20 @@
             this.longitude.ReadOnly = true;
             this.longitude.Visible = false;
             // 
-            // tabPage3
+            // administrationTab
             // 
-            this.tabPage3.BackColor = System.Drawing.Color.DimGray;
-            this.tabPage3.Controls.Add(this.label27);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Controls.Add(this.label25);
-            this.tabPage3.Controls.Add(this.dataGridViewAdministration);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage3.Size = new System.Drawing.Size(1217, 621);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Administracija";
+            this.administrationTab.BackColor = System.Drawing.Color.DimGray;
+            this.administrationTab.Controls.Add(this.label27);
+            this.administrationTab.Controls.Add(this.groupBox6);
+            this.administrationTab.Controls.Add(this.label25);
+            this.administrationTab.Controls.Add(this.dataGridViewAdministration);
+            this.administrationTab.Location = new System.Drawing.Point(4, 25);
+            this.administrationTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.administrationTab.Name = "administrationTab";
+            this.administrationTab.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.administrationTab.Size = new System.Drawing.Size(1217, 647);
+            this.administrationTab.TabIndex = 2;
+            this.administrationTab.Text = "Administracija";
             // 
             // label27
             // 
@@ -1142,20 +1163,171 @@
             this.typeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.typeName.Width = 1028;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pretražiLokacijeToolStripMenuItem,
+            this.iZLAZToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 48);
+            // 
+            // pretražiLokacijeToolStripMenuItem
+            // 
+            this.pretražiLokacijeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pretražiLokacijeToolStripMenuItem1,
+            this.spremljeneLokacijeToolStripMenuItem,
+            this.spremljeniPoligoniToolStripMenuItem,
+            this.administracijaTipovaToolStripMenuItem});
+            this.pretražiLokacijeToolStripMenuItem.Name = "pretražiLokacijeToolStripMenuItem";
+            this.pretražiLokacijeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.pretražiLokacijeToolStripMenuItem.Text = "Opcije";
+            // 
+            // pretražiLokacijeToolStripMenuItem1
+            // 
+            this.pretražiLokacijeToolStripMenuItem1.Name = "pretražiLokacijeToolStripMenuItem1";
+            this.pretražiLokacijeToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
+            this.pretražiLokacijeToolStripMenuItem1.Text = "Pretraži lokacije";
+            this.pretražiLokacijeToolStripMenuItem1.Click += new System.EventHandler(this.pretražiLokacijeToolStripMenuItem1_Click);
+            // 
+            // spremljeneLokacijeToolStripMenuItem
+            // 
+            this.spremljeneLokacijeToolStripMenuItem.Name = "spremljeneLokacijeToolStripMenuItem";
+            this.spremljeneLokacijeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.spremljeneLokacijeToolStripMenuItem.Text = "Spremljene lokacije";
+            this.spremljeneLokacijeToolStripMenuItem.Click += new System.EventHandler(this.spremljeneLokacijeToolStripMenuItem_Click);
+            // 
+            // spremljeniPoligoniToolStripMenuItem
+            // 
+            this.spremljeniPoligoniToolStripMenuItem.Name = "spremljeniPoligoniToolStripMenuItem";
+            this.spremljeniPoligoniToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.spremljeniPoligoniToolStripMenuItem.Text = "Spremljeni poligoni";
+            this.spremljeniPoligoniToolStripMenuItem.Click += new System.EventHandler(this.spremljeniPoligoniToolStripMenuItem_Click);
+            // 
+            // administracijaTipovaToolStripMenuItem
+            // 
+            this.administracijaTipovaToolStripMenuItem.Name = "administracijaTipovaToolStripMenuItem";
+            this.administracijaTipovaToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.administracijaTipovaToolStripMenuItem.Text = "Administracija tipova";
+            this.administracijaTipovaToolStripMenuItem.Click += new System.EventHandler(this.administracijaTipovaToolStripMenuItem_Click);
+            // 
+            // iZLAZToolStripMenuItem
+            // 
+            this.iZLAZToolStripMenuItem.Name = "iZLAZToolStripMenuItem";
+            this.iZLAZToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.iZLAZToolStripMenuItem.Text = "Izlaz";
+            this.iZLAZToolStripMenuItem.Click += new System.EventHandler(this.iZLAZToolStripMenuItem_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.toolStripButton1});
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1224, 25);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.opcijeToolStripMenuItem,
+            this.izlazToolStripMenuItem1});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(62, 22);
+            this.toolStripDropDownButton1.Text = "Izbornik";
+            // 
+            // opcijeToolStripMenuItem
+            // 
+            this.opcijeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pretražiLokacijeToolStripMenuItem2,
+            this.spremljeneLokacijeToolStripMenuItem1,
+            this.spremljeniPoligoniToolStripMenuItem1,
+            this.administracijaTipovaToolStripMenuItem1});
+            this.opcijeToolStripMenuItem.Name = "opcijeToolStripMenuItem";
+            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opcijeToolStripMenuItem.Text = "Opcije";
+            // 
+            // pretražiLokacijeToolStripMenuItem2
+            // 
+            this.pretražiLokacijeToolStripMenuItem2.Name = "pretražiLokacijeToolStripMenuItem2";
+            this.pretražiLokacijeToolStripMenuItem2.Size = new System.Drawing.Size(186, 22);
+            this.pretražiLokacijeToolStripMenuItem2.Text = "Pretraži lokacije";
+            this.pretražiLokacijeToolStripMenuItem2.Click += new System.EventHandler(this.pretražiLokacijeToolStripMenuItem2_Click);
+            // 
+            // spremljeneLokacijeToolStripMenuItem1
+            // 
+            this.spremljeneLokacijeToolStripMenuItem1.Name = "spremljeneLokacijeToolStripMenuItem1";
+            this.spremljeneLokacijeToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
+            this.spremljeneLokacijeToolStripMenuItem1.Text = "Spremljene lokacije";
+            this.spremljeneLokacijeToolStripMenuItem1.Click += new System.EventHandler(this.spremljeneLokacijeToolStripMenuItem1_Click);
+            // 
+            // spremljeniPoligoniToolStripMenuItem1
+            // 
+            this.spremljeniPoligoniToolStripMenuItem1.Name = "spremljeniPoligoniToolStripMenuItem1";
+            this.spremljeniPoligoniToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
+            this.spremljeniPoligoniToolStripMenuItem1.Text = "Spremljeni poligoni";
+            this.spremljeniPoligoniToolStripMenuItem1.Click += new System.EventHandler(this.spremljeniPoligoniToolStripMenuItem1_Click);
+            // 
+            // administracijaTipovaToolStripMenuItem1
+            // 
+            this.administracijaTipovaToolStripMenuItem1.Name = "administracijaTipovaToolStripMenuItem1";
+            this.administracijaTipovaToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
+            this.administracijaTipovaToolStripMenuItem1.Text = "Administracija tipova";
+            this.administracijaTipovaToolStripMenuItem1.Click += new System.EventHandler(this.administracijaTipovaToolStripMenuItem1_Click);
+            // 
+            // izlazToolStripMenuItem1
+            // 
+            this.izlazToolStripMenuItem1.Name = "izlazToolStripMenuItem1";
+            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.izlazToolStripMenuItem1.Text = "Izlaz";
+            this.izlazToolStripMenuItem1.Click += new System.EventHandler(this.izlazToolStripMenuItem1_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uputeZaKorištenjeToolStripMenuItem,
+            this.oProgramuToolStripMenuItem});
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButton1.Text = "Pomoć";
+            // 
+            // uputeZaKorištenjeToolStripMenuItem
+            // 
+            this.uputeZaKorištenjeToolStripMenuItem.Name = "uputeZaKorištenjeToolStripMenuItem";
+            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uputeZaKorištenjeToolStripMenuItem.Text = "Upute za korištenje";
+            this.uputeZaKorištenjeToolStripMenuItem.Click += new System.EventHandler(this.uputeZaKorištenjeToolStripMenuItem_Click);
+            // 
+            // oProgramuToolStripMenuItem
+            // 
+            this.oProgramuToolStripMenuItem.Name = "oProgramuToolStripMenuItem";
+            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oProgramuToolStripMenuItem.Text = "O programu";
+            this.oProgramuToolStripMenuItem.Click += new System.EventHandler(this.oProgramuToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1220, 642);
+            this.ClientSize = new System.Drawing.Size(1224, 691);
+            this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1240, 685);
+            this.MaximumSize = new System.Drawing.Size(1240, 730);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1240, 685);
+            this.MinimumSize = new System.Drawing.Size(1240, 730);
             this.Name = "Form1";
             this.Text = "Google Places";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1179,12 +1351,16 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedPolygons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSavedLocations)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.administrationTab.ResumeLayout(false);
+            this.administrationTab.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAdministration)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1201,7 +1377,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewSearchedPlaces;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage administrationTab;
         private System.Windows.Forms.DataGridView dataGridViewAdministration;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Label label6;
@@ -1268,6 +1444,24 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Adresa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lng;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem pretražiLokacijeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iZLAZToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pretražiLokacijeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem spremljeneLokacijeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spremljeniPoligoniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem administracijaTipovaToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem opcijeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pretražiLokacijeToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem spremljeneLokacijeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem spremljeniPoligoniToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem administracijaTipovaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem izlazToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem uputeZaKorištenjeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oProgramuToolStripMenuItem;
     }
 }
 

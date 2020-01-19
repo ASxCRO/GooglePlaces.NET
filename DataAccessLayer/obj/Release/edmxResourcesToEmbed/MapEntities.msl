@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DOTNET2019ModelStoreContainer" CdmEntityContainer="MapEntities">
+    <EntitySetMapping Name="Supan_PlaceTypes">
+      <EntityTypeMapping TypeName="DOTNET2019Model.Supan_PlaceTypes">
+        <MappingFragment StoreEntitySet="Supan_PlaceTypes">
+          <ScalarProperty Name="TYPE_ALLOWED" ColumnName="TYPE_ALLOWED" />
+          <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+          <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
+          <ScalarProperty Name="TYPE_VALUE" ColumnName="TYPE_VALUE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supan_Places">
+      <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Places">
+        <MappingFragment StoreEntitySet="Supan_Places">
+          <ScalarProperty Name="PLACE_DESCRIPTION" ColumnName="PLACE_DESCRIPTION" />
+          <ScalarProperty Name="PLACE_ADDRESS" ColumnName="PLACE_ADDRESS" />
+          <ScalarProperty Name="PLACE_TYPE" ColumnName="PLACE_TYPE" />
+          <ScalarProperty Name="PLACE_LNG" ColumnName="PLACE_LNG" />
+          <ScalarProperty Name="PLACE_LAT" ColumnName="PLACE_LAT" />
+          <ScalarProperty Name="PLACE_NAME" ColumnName="PLACE_NAME" />
+          <ScalarProperty Name="PLACE_ID" ColumnName="PLACE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supan_RegionPoints">
+      <EntityTypeMapping TypeName="DOTNET2019Model.Supan_RegionPoints">
+        <MappingFragment StoreEntitySet="Supan_RegionPoints">
+          <ScalarProperty Name="LNG" ColumnName="LNG" />
+          <ScalarProperty Name="LAT" ColumnName="LAT" />
+          <ScalarProperty Name="ID_REGIJE" ColumnName="ID_REGIJE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supan_Regions">
+      <EntityTypeMapping TypeName="DOTNET2019Model.Supan_Regions">
+        <MappingFragment StoreEntitySet="Supan_Regions">
+          <ScalarProperty Name="OPIS_REGIJE" ColumnName="OPIS_REGIJE" />
+          <ScalarProperty Name="NAZIV_REGIJE" ColumnName="NAZIV_REGIJE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

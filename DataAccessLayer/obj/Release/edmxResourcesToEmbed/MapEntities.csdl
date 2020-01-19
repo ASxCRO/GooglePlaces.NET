@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DOTNET2019Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Supan_PlaceTypes">
+    <Key>
+      <PropertyRef Name="TYPE_ID" />
+    </Key>
+    <Property Name="TYPE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TYPE_VALUE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Supan_Places" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_PlaceTypes" ToRole="Supan_Places" />
+    <Property Name="TYPE_ALLOWED" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="MapEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Supan_PlaceTypes" EntityType="Self.Supan_PlaceTypes" />
+    <EntitySet Name="Supan_Places" EntityType="DOTNET2019Model.Supan_Places" />
+    <AssociationSet Name="FK_Supan_Places_Supan_PlaceTypes" Association="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes">
+      <End Role="Supan_PlaceTypes" EntitySet="Supan_PlaceTypes" />
+      <End Role="Supan_Places" EntitySet="Supan_Places" />
+    </AssociationSet>
+    <EntitySet Name="Supan_RegionPoints" EntityType="DOTNET2019Model.Supan_RegionPoints" />
+    <EntitySet Name="Supan_Regions" EntityType="DOTNET2019Model.Supan_Regions" />
+    <AssociationSet Name="FK_Supan_RegionPoints_Supan_Regions" Association="DOTNET2019Model.FK_Supan_RegionPoints_Supan_Regions">
+      <End Role="Supan_Regions" EntitySet="Supan_Regions" />
+      <End Role="Supan_RegionPoints" EntitySet="Supan_RegionPoints" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Supan_Places">
+    <Key>
+      <PropertyRef Name="PLACE_ID" />
+    </Key>
+    <Property Name="PLACE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PLACE_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PLACE_LAT" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+    <Property Name="PLACE_LNG" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+    <Property Name="PLACE_TYPE" Type="Int32" />
+    <NavigationProperty Name="Supan_PlaceTypes" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_Places" ToRole="Supan_PlaceTypes" />
+    <Property Name="PLACE_ADDRESS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PLACE_DESCRIPTION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Supan_Places_Supan_PlaceTypes">
+    <End Type="DOTNET2019Model.Supan_PlaceTypes" Role="Supan_PlaceTypes" Multiplicity="0..1" />
+    <End Type="DOTNET2019Model.Supan_Places" Role="Supan_Places" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supan_PlaceTypes">
+        <PropertyRef Name="TYPE_ID" />
+      </Principal>
+      <Dependent Role="Supan_Places">
+        <PropertyRef Name="PLACE_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Supan_RegionPoints">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_REGIJE" Type="Int16" Nullable="false" />
+    <Property Name="LAT" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+    <Property Name="LNG" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+    <NavigationProperty Name="Supan_Regions" Relationship="DOTNET2019Model.FK_Supan_RegionPoints_Supan_Regions" FromRole="Supan_RegionPoints" ToRole="Supan_Regions" />
+  </EntityType>
+  <EntityType Name="Supan_Regions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAZIV_REGIJE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OPIS_REGIJE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Supan_RegionPoints" Relationship="DOTNET2019Model.FK_Supan_RegionPoints_Supan_Regions" FromRole="Supan_Regions" ToRole="Supan_RegionPoints" />
+  </EntityType>
+  <Association Name="FK_Supan_RegionPoints_Supan_Regions">
+    <End Type="DOTNET2019Model.Supan_Regions" Role="Supan_Regions" Multiplicity="1" />
+    <End Type="DOTNET2019Model.Supan_RegionPoints" Role="Supan_RegionPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supan_Regions">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Supan_RegionPoints">
+        <PropertyRef Name="ID_REGIJE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

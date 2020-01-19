@@ -7,7 +7,7 @@ C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\Newtonsoft
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.xml
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\Korisnik\source\repos\GooglePlaces\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache

@@ -145,7 +145,7 @@ namespace PresentationLayer
             }
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void ClearMarkerOverlay()
         {
             if (gmap.Overlays.Count == 0)
             {
@@ -157,84 +157,127 @@ namespace PresentationLayer
                 gmap.Overlays.Remove(_markers);
                 gmap.Refresh();
             }
+        }
 
-            if (startLocationBox.Text == "" || radiusBox.Text == "" || typeCombo.Text == "")
+
+        private void GetSelectedTypeIDs(List<int> selectedTypeIDs)
+        {
+            string selectedTypeName = typeCombo.GetItemText(this.typeCombo.SelectedItem);
+
+            using (var mapDB = new MapEntities())
+            {
+                if (typeCombo.Text == "Svi tipovi")
+                {
+                    selectedTypeIDs = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_ALLOWED == true).Select(t => t.TYPE_ID).ToList();
+                }
+                else
+                {
+                    _selectedTypeId = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_NAME == selectedTypeName).Select(t => t.TYPE_ID).FirstOrDefault();
+                }
+            }
+        }
+
+        private int GetRadius()
+        {
+            return Convert.ToInt32(radiusBox.Text);
+        }
+
+
+        private bool CheckSearchBoxes()
+        {
+            return String.IsNullOrWhiteSpace(startLocationBox.Text) || String.IsNullOrEmpty(startLocationBox.Text) 
+                       || String.IsNullOrWhiteSpace(radiusBox.Text) || String.IsNullOrEmpty(radiusBox.Text) 
+                       || String.IsNullOrWhiteSpace(typeCombo.Text) || String.IsNullOrEmpty(typeCombo.Text);
+        }
+
+        private void GetPlacesForSearchGrid(List<Supan_Places> places, List<int> selectedTypeIDs)
+        {
+            if (typeCombo.Text == "Svi tipovi")
+            {
+                foreach (var typeID in selectedTypeIDs)
+                {
+                    places.AddRange(PlaceRepository.GetPlaces(typeID, _positionLat, _positionLng, GetRadius()));
+                }
+            }
+            else
+            {
+                places = PlaceRepository.GetPlaces(_selectedTypeId, _positionLat, _positionLng, GetRadius());
+            }
+        }
+
+        private void GetPlacesForSearchGridInsideTypeBoundaries(List<Supan_Places> places, List<int> selectedTypeIDs)
+        {
+            try
+            {
+                GetPlacesForSearchGrid(places, selectedTypeIDs);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Tip lokacije ili ne postoji ili vam pretraživanje tog tipa lokacije nije omogućeno. Provjerite tipove lokacija u administraciji." + exc.Message);
+                return;
+            }
+        }
+
+        private void GetPlacesThatAreOnlyInPolygon(List<Supan_Places> places)
+        {
+            if (_polygons.Polygons.Count() > 0 && searchOnlyInPolygon.Checked)
+            {
+                var polygons = _polygons.Polygons;
+                foreach (var polygon in polygons)
+                {
+                    foreach (var place in places.ToList())
+                    {
+                        bool placeIsInsidePolygon = polygon.IsInside(new PointLatLng((double)place.PLACE_LAT, (double)place.PLACE_LNG));
+                        if (!placeIsInsidePolygon)
+                        {
+                            var placeToRemove = places.Where(p => p.PLACE_LAT == place.PLACE_LAT && p.PLACE_LNG == place.PLACE_LNG).FirstOrDefault();
+                            places.Remove(placeToRemove);
+                        }
+                    }
+
+                }
+            }
+            else if (_polygons.Polygons.Count() == 0 && searchOnlyInPolygon.Checked)
+            {
+                MessageBox.Show("Ne postoji ni jedan poligon na karti.");
+                return;
+            }
+        }
+
+        private void SetGridAndMarkersForSearchedPlaces(List<Supan_Places> places)
+        {
+            if (places.Count() > 0)
+            {
+                dataGridViewSearchedPlaces = NapuniGridListom<Supan_Places>(dataGridViewSearchedPlaces, places);
+                foreach (var place in places)
+                {
+                    GMapMarker marker = NapraviMarker(place.PLACE_LAT, place.PLACE_LNG, GMarkerGoogleType.red_dot, _markers);
+                    PostaviMarkerToolTip(marker, place.PLACE_NAME, place.PLACE_ADDRESS);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nije pronađeno niti jedno mjesto prema odabranim kriterijima.");
+            }
+        }
+
+
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            ClearMarkerOverlay();
+            if (CheckSearchBoxes())
             {
                 MessageBox.Show("Molimo unesite sve tražene vrijednosti");
             }
             else
             {
-                List<int> selectedTypeIDs = null;
-                string selectedTypeName = this.typeCombo.GetItemText(this.typeCombo.SelectedItem);
-
-                using (var mapDB = new MapEntities())
-                {
-                    if (typeCombo.Text == "Svi tipovi")
-                    {
-                        selectedTypeIDs = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_ALLOWED == true).Select(t => t.TYPE_ID).ToList();
-                    }
-                    else
-                    {
-                        _selectedTypeId = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_NAME == selectedTypeName).Select(t => t.TYPE_ID).FirstOrDefault();
-                    }
-                }
-
-                int radius = Convert.ToInt32(radiusBox.Text);
                 List<Supan_Places> places = new List<Supan_Places>();
-                try
-                {
-                    if (typeCombo.Text == "Svi tipovi")
-                    {
-                        foreach (var typeID in selectedTypeIDs)
-                        {
-                            places.AddRange(PlaceRepository.GetPlaces(typeID, _positionLat, _positionLng, radius));
-                        }
-                    }
-                    else
-                    {
-                        places = PlaceRepository.GetPlaces(_selectedTypeId, _positionLat, _positionLng, radius);
-                    }
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show("Tip lokacije ili ne postoji ili vam pretraživanje tog tipa lokacije nije omogućeno. Provjerite tipove lokacija u administraciji." + exc.Message);
-                    return;
-                }
-                if (_polygons.Polygons.Count() > 0 && searchOnlyInPolygon.Checked)
-                {
-                    var polygons = _polygons.Polygons;
-                    foreach (var polygon in polygons)
-                    {
-                        foreach (var place in places.ToList())
-                        {
-                            bool placeIsInsidePolygon = polygon.IsInside(new PointLatLng((double)place.PLACE_LAT, (double)place.PLACE_LNG));
-                            if (!placeIsInsidePolygon)
-                            {
-                                var placeToRemove = places.Where(p => p.PLACE_LAT == place.PLACE_LAT && p.PLACE_LNG == place.PLACE_LNG).FirstOrDefault();
-                                places.Remove(placeToRemove);
-                            }
-                        }
-
-                    }
-                }
-                else if (_polygons.Polygons.Count() == 0 && searchOnlyInPolygon.Checked)
-                {
-                    MessageBox.Show("Ne postoji ni jedan poligon na karti.");
-                    return;
-                }
-                if (places.Count() > 0)
-                {
-                    dataGridViewSearchedPlaces = NapuniGridListom<Supan_Places>(dataGridViewSearchedPlaces, places);
-                    foreach (var place in places)
-                    {
-                        GMapMarker marker = NapraviMarker(place.PLACE_LAT, place.PLACE_LNG, GMarkerGoogleType.red_dot, _markers);
-                        PostaviMarkerToolTip(marker, place.PLACE_NAME, place.PLACE_ADDRESS);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Nije pronađeno niti jedno mjesto prema odabranim kriterijima.");
-                }
+                List<int> selectedTypeIDs = new List<int>();
+                GetSelectedTypeIDs(selectedTypeIDs);
+                GetPlacesForSearchGridInsideTypeBoundaries(places,selectedTypeIDs);
+                GetPlacesThatAreOnlyInPolygon(places);
+                SetGridAndMarkersForSearchedPlaces(places);
             }
 
         }
@@ -395,48 +438,48 @@ namespace PresentationLayer
             button.Image = Image.FromFile(lokacijaSlike);
             button.Width = 33;
             button.ReadOnly = true;
-
             button.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView.Columns.Add(button);
 
         }
 
-        private void dataGridViewAdministration_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void GetPlaceType(Supan_PlaceTypes placeType, string typeName)
         {
-            var dataGridViewAdministrationBySender = (DataGridView)sender;
-            var column = dataGridViewAdministrationBySender.Columns[e.ColumnIndex];
-            string typeName = (string)dataGridViewAdministration.Rows[e.RowIndex].Cells["typeName"].Value;
-            Supan_PlaceTypes placeType = new Supan_PlaceTypes();
             using (var mapDB = new MapEntities())
             {
                 placeType = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_NAME == typeName).FirstOrDefault();
             }
-            if (column.Name == "Dodaj tip" & e.RowIndex > -1)
-            {
-                if (placeType.TYPE_ALLOWED == true)
-                {
-                    MessageBox.Show("Taj tip lokacije već možete pretraživati ( " + typeName + " )");
-                    return;
-                }
-                placeType.TYPE_ALLOWED = true;
-                using (var mapDB = new MapEntities())
-                {
-                    mapDB.SaveChanges();
-                }
-                NapuniTypeCombo();
-                MessageBox.Show("Od sad možete pretraživati sljedeći tip lokacije: " + typeName);
-            }
-            else if (column.Name == "Izbriši tip" & e.RowIndex > -1)
-            {
+        }
 
-                if (placeType.TYPE_ALLOWED == false)
-                {
-                    MessageBox.Show("Taj tip lokacije je već onemogućen za pretraživanje ( " + typeName + " )");
-                    return;
-                }
-                placeType.TYPE_ALLOWED = false;
-                MessageBox.Show("Od sad više ne možete pretraživati sljedeći tip lokacije: " + typeName);
+        private void AddTypeForSearching(Supan_PlaceTypes placeType)
+        {
+            if (placeType.TYPE_ALLOWED == true)
+            {
+                MessageBox.Show("Taj tip lokacije već možete pretraživati ( " + typeName + " )");
+                return;
             }
+            placeType.TYPE_ALLOWED = true;
+            using (var mapDB = new MapEntities())
+            {
+                mapDB.SaveChanges();
+            }
+            NapuniTypeCombo();
+            MessageBox.Show("Od sad možete pretraživati sljedeći tip lokacije: " + typeName);
+        }
+
+        private void DeleteTypeFromSearching(Supan_PlaceTypes placeType)
+        {
+            if (placeType.TYPE_ALLOWED == false)
+            {
+                MessageBox.Show("Taj tip lokacije je već onemogućen za pretraživanje ( " + typeName + " )");
+                return;
+            }
+            placeType.TYPE_ALLOWED = false;
+            MessageBox.Show("Od sad više ne možete pretraživati sljedeći tip lokacije: " + typeName);
+        }
+
+        private void SaveTypeForSearchingInDB(Supan_PlaceTypes placeType)
+        {
             using (var mapDB = new MapEntities())
             {
                 if (placeType.TYPE_ALLOWED == true)
@@ -446,6 +489,26 @@ namespace PresentationLayer
                 mapDB.SaveChanges();
             }
             NapuniTypeCombo();
+        }
+
+        private void dataGridViewAdministration_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var dataGridViewAdministrationBySender = (DataGridView)sender;
+            var column = dataGridViewAdministrationBySender.Columns[e.ColumnIndex];
+            Supan_PlaceTypes placeType = new Supan_PlaceTypes();
+            string typeName = (string)dataGridViewAdministration.Rows[e.RowIndex].Cells["typeName"].Value;
+
+            GetPlaceType(placeType, typeName);
+            if (column.Name == "Dodaj tip" & e.RowIndex > -1)
+            {
+                AddTypeForSearching(placeType);
+            }
+            else if (column.Name == "Izbriši tip" & e.RowIndex > -1)
+            {
+                DeleteTypeFromSearching(placeType);
+
+            }
+            SaveTypeForSearchingInDB(placeType);
         }
 
         private void searchValueButton_Click(object sender, EventArgs e)
@@ -465,6 +528,7 @@ namespace PresentationLayer
             }
         }
 
+
         private void dataGridViewSearchedPlaces_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dataGridViewSearchedLocationsBySender = (DataGridView)sender;
@@ -479,11 +543,8 @@ namespace PresentationLayer
             }
         }
 
-        private void OtvoriFormuZaSpremanjeLokacije(GMapMarker item)
+        private void GetPlaceNameAndAddressForSavingLocationForm(GMapMarker item, string placeName, string placeAddress)
         {
-            int typeId = _selectedTypeId;
-            string placeName = String.Empty;
-            string placeAddress = String.Empty;
             foreach (DataGridViewRow row in dataGridViewSearchedPlaces.Rows)
             {
                 if (Convert.ToDecimal(row.Cells[2].Value) == (decimal)item.Position.Lat && Convert.ToDecimal(row.Cells[3].Value) == (decimal)item.Position.Lng)
@@ -492,6 +553,14 @@ namespace PresentationLayer
                     placeAddress = row.Cells[1].Value.ToString();
                 }
             }
+        }
+
+        private void OtvoriFormuZaSpremanjeLokacije(GMapMarker item)
+        {
+            int typeId = _selectedTypeId;
+            string placeName = String.Empty;
+            string placeAddress = String.Empty;
+            GetPlaceNameAndAddressForSavingLocationForm(item, placeName, placeAddress);
             var placeToSave = new Supan_Places
             {
                 PLACE_NAME = placeName,
@@ -522,18 +591,22 @@ namespace PresentationLayer
             NapuniTextBoxSuggest(searchLocationsNameInGridBox, dataGridViewSavedLocations);
         }
 
+        private bool PlaceAlreadyExistsInDB(decimal lat, decimal lng)
+        {
+            using (var mapDB = new MapEntities())
+            {
+                return mapDB.Supan_Places.Any(p => p.PLACE_LAT == lat && p.PLACE_LNG == lng);
+            }
+        }
+
         private void gmap_OnMarkerClick(GMapMarker marker, MouseEventArgs e)
         {
-            Supan_Places place = null;
+            
             if (e.Button == MouseButtons.Left)
             {
                 decimal lat = Convert.ToDecimal(string.Format("{0:N6}", marker.Position.Lat));
                 decimal lng = Convert.ToDecimal(string.Format("{0:N6}", marker.Position.Lng));
-                using (var mapDB = new MapEntities())
-                {
-                    place = mapDB.Supan_Places.Where(p => p.PLACE_LAT == lat && p.PLACE_LNG == lng).FirstOrDefault();
-                }
-                if (place == null)
+                if (PlaceAlreadyExistsInDB(lat,lng))
                 {
                     OtvoriFormuZaSpremanjeLokacije(marker);
                 }
@@ -544,37 +617,66 @@ namespace PresentationLayer
             }
         }
 
+        private void ZoomSavedLocation(decimal lat, decimal lng)
+        {
+            gmap.Position = new PointLatLng((double)lat, (double)lng);
+            gmap.Zoom = 30;
+            NapraviMarker(lat, lng, GMarkerGoogleType.red_pushpin, _markers);
+            tabControl1.SelectedTab = mapTab;
+        }
+
+        private void DeleteSavedLocation (string placeName)
+        {
+            using (var mapDB = new MapEntities())
+            {
+                Supan_Places place = mapDB.Supan_Places.Where(p => p.PLACE_NAME == placeName).FirstOrDefault();
+                mapDB.Supan_Places.Remove(place);
+                mapDB.SaveChanges();
+                dataGridViewSavedLocations = NapuniGridIzBaze<Supan_Places>(dataGridViewSavedLocations, mapDB.Supan_Places);
+            }
+
+            ResetirajSavedLocationsInputBoxes();
+            MessageBox.Show("Uspješno ste obrisali lokaciju: " + placeName);
+        }
+
+        private void OpenFormEditPlace(string placeName)
+        {
+            using (FormEditPlace formEditPlace = new FormEditPlace())
+            {
+                using (var mapDB = new MapEntities())
+                {
+                    formEditPlace.placeToEdit = mapDB.Supan_Places.Where(p => p.PLACE_NAME == placeName).FirstOrDefault();
+                }
+                formEditPlace.ShowDialog();
+                if (formEditPlace.savingSuccessFull)
+                {
+                    using (var mapDB = new MapEntities())
+                    {
+                        dataGridViewSavedLocations = NapuniGridIzBaze<Supan_Places>(dataGridViewSavedLocations, mapDB.Supan_Places);
+                    }
+                    ResetirajSavedLocationsInputBoxes();
+                }
+            }
+        }
+
         private void dataGridViewSavedLocations_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dataGridViewSearchedLocationsBySender = (DataGridView)sender;
             var column = dataGridViewSearchedLocationsBySender.Columns[e.ColumnIndex];
 
+            string placeName = (string)dataGridViewSavedLocations.Rows[e.RowIndex].Cells["placeName"].Value;
+
             if (column.Name == "Uvećaj lokaciju" & e.RowIndex > -1)
             {
                 decimal lat = (decimal)dataGridViewSavedLocations.Rows[e.RowIndex].Cells["latitude"].Value;
                 decimal lng = (decimal)dataGridViewSavedLocations.Rows[e.RowIndex].Cells["longitude"].Value;
-                gmap.Position = new PointLatLng((double)lat, (double)lng);
-                gmap.Zoom = 30;
-                NapraviMarker(lat, lng, GMarkerGoogleType.red_pushpin, _markers);
-                tabControl1.SelectedTab = mapTab;
-
+                ZoomSavedLocation(lat, lng);
             }
             else if (column.Name == "Obriši lokaciju" & e.RowIndex > -1)
             {
                 try
                 {
-                    string placeName = (string)dataGridViewSavedLocations.Rows[e.RowIndex].Cells["placeName"].Value;
-                    using (var mapDB = new MapEntities())
-                    {
-                        Supan_Places place = mapDB.Supan_Places.Where(p => p.PLACE_NAME == placeName).FirstOrDefault();
-                        mapDB.Supan_Places.Remove(place);
-                        mapDB.SaveChanges();
-                        dataGridViewSavedLocations = NapuniGridIzBaze<Supan_Places>(dataGridViewSavedLocations, mapDB.Supan_Places);
-                    }
-
-                    ResetirajSavedLocationsInputBoxes();
-                    MessageBox.Show("Uspješno ste obrisali lokaciju: " + placeName);
-
+                    DeleteSavedLocation(placeName);
                 }
                 catch (Exception ex)
                 {
@@ -584,23 +686,7 @@ namespace PresentationLayer
             }
             else if (column.Name == "Uredi detalje" & e.RowIndex > -1)
             {
-                var placeName = (string)dataGridViewSavedLocations.Rows[e.RowIndex].Cells["placeName"].Value;
-                using (FormEditPlace formEditPlace = new FormEditPlace())
-                {
-                    using (var mapDB = new MapEntities())
-                    {
-                        formEditPlace.placeToEdit = mapDB.Supan_Places.Where(p => p.PLACE_NAME == placeName).FirstOrDefault();
-                    }
-                    formEditPlace.ShowDialog();
-                    if (formEditPlace.savingSuccessFull)
-                    {
-                        using (var mapDB = new MapEntities())
-                        {
-                            dataGridViewSavedLocations = NapuniGridIzBaze<Supan_Places>(dataGridViewSavedLocations, mapDB.Supan_Places);
-                        }
-                        ResetirajSavedLocationsInputBoxes();
-                    }
-                }
+                OpenFormEditPlace(placeName);
             }
         }
 

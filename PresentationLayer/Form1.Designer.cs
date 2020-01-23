@@ -463,6 +463,7 @@
             // 
             // typeCombo
             // 
+            this.typeCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeCombo.ForeColor = System.Drawing.Color.Black;
             this.typeCombo.FormattingEnabled = true;
             this.typeCombo.Location = new System.Drawing.Point(119, 43);
@@ -1302,14 +1303,14 @@
             // uputeZaKorištenjeToolStripMenuItem
             // 
             this.uputeZaKorištenjeToolStripMenuItem.Name = "uputeZaKorištenjeToolStripMenuItem";
-            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.uputeZaKorištenjeToolStripMenuItem.Text = "Upute za korištenje";
             this.uputeZaKorištenjeToolStripMenuItem.Click += new System.EventHandler(this.uputeZaKorištenjeToolStripMenuItem_Click);
             // 
             // oProgramuToolStripMenuItem
             // 
             this.oProgramuToolStripMenuItem.Name = "oProgramuToolStripMenuItem";
-            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.oProgramuToolStripMenuItem.Text = "O programu";
             this.oProgramuToolStripMenuItem.Click += new System.EventHandler(this.oProgramuToolStripMenuItem_Click);
             // 

@@ -73,7 +73,7 @@ namespace DataAccessLayer
                     street = "Ulica nepoznata";
                 }
                 city = addressParts[addressParts.Count()-1].TrimStart();
-                country = Convert.ToString(place.SelectToken("plus_code.compound_code")).Split(' ').Last();
+                country = Convert.ToString(place.SelectToken("plus_code.compound_code")).Split(',').Last().TrimStart();
                 _googlePlaces.Add(
                     new Supan_Places
                     {

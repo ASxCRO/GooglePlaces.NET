@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
@@ -130,6 +130,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.uputeZaKorištenjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oProgramuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -161,7 +162,7 @@
             this.gmap.GrayScaleMode = true;
             this.gmap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gmap.LevelsKeepInMemmory = 5;
-            this.gmap.Location = new System.Drawing.Point(9, 6);
+            this.gmap.Location = new System.Drawing.Point(-4, 0);
             this.gmap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gmap.MarkersEnabled = true;
             this.gmap.MaxZoom = 18;
@@ -176,7 +177,7 @@
             this.gmap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gmap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gmap.ShowTileGridLines = false;
-            this.gmap.Size = new System.Drawing.Size(729, 635);
+            this.gmap.Size = new System.Drawing.Size(752, 647);
             this.gmap.TabIndex = 1;
             this.gmap.Zoom = 5D;
             this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
@@ -192,7 +193,7 @@
             this.tabControl1.Controls.Add(this.administrationTab);
             this.tabControl1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.ItemSize = new System.Drawing.Size(100, 21);
-            this.tabControl1.Location = new System.Drawing.Point(0, 23);
+            this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -350,6 +351,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label28);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
@@ -374,7 +376,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label16.Location = new System.Drawing.Point(245, 0);
+            this.label16.Location = new System.Drawing.Point(116, 0);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(78, 14);
@@ -456,7 +458,7 @@
             this.searchOnlyInPolygon.AutoSize = true;
             this.searchOnlyInPolygon.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
             this.searchOnlyInPolygon.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.searchOnlyInPolygon.Location = new System.Drawing.Point(119, 99);
+            this.searchOnlyInPolygon.Location = new System.Drawing.Point(142, 98);
             this.searchOnlyInPolygon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.searchOnlyInPolygon.Name = "searchOnlyInPolygon";
             this.searchOnlyInPolygon.Size = new System.Drawing.Size(183, 23);
@@ -627,18 +629,18 @@
             this.Lat,
             this.Lng,
             this.typeId});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.MenuBar;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(746, 391);
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.MenuBar;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(756, 391);
             this.dataGridViewSearchedPlaces.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewSearchedPlaces.Name = "dataGridViewSearchedPlaces";
-            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(466, 250);
+            this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(456, 250);
             this.dataGridViewSearchedPlaces.TabIndex = 2;
             this.dataGridViewSearchedPlaces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedPlaces_CellContentClick);
             // 
@@ -1275,7 +1277,7 @@
             this.spremljeniPoligoniToolStripMenuItem1,
             this.administracijaTipovaToolStripMenuItem1});
             this.opcijeToolStripMenuItem.Name = "opcijeToolStripMenuItem";
-            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.opcijeToolStripMenuItem.Text = "Opcije";
             // 
             // pretražiLokacijeToolStripMenuItem2
@@ -1309,7 +1311,7 @@
             // izlazToolStripMenuItem1
             // 
             this.izlazToolStripMenuItem1.Name = "izlazToolStripMenuItem1";
-            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
+            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.izlazToolStripMenuItem1.Text = "Izlaz";
             this.izlazToolStripMenuItem1.Click += new System.EventHandler(this.izlazToolStripMenuItem1_Click);
             // 
@@ -1328,16 +1330,28 @@
             // uputeZaKorištenjeToolStripMenuItem
             // 
             this.uputeZaKorištenjeToolStripMenuItem.Name = "uputeZaKorištenjeToolStripMenuItem";
-            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uputeZaKorištenjeToolStripMenuItem.Text = "Upute za korištenje";
             this.uputeZaKorištenjeToolStripMenuItem.Click += new System.EventHandler(this.uputeZaKorištenjeToolStripMenuItem_Click);
             // 
             // oProgramuToolStripMenuItem
             // 
             this.oProgramuToolStripMenuItem.Name = "oProgramuToolStripMenuItem";
-            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.oProgramuToolStripMenuItem.Text = "O programu";
             this.oProgramuToolStripMenuItem.Click += new System.EventHandler(this.oProgramuToolStripMenuItem_Click);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label28.Location = new System.Drawing.Point(8, 90);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(59, 14);
+            this.label28.TabIndex = 18;
+            this.label28.Text = "max. 50000";
             // 
             // Form1
             // 
@@ -1490,6 +1504,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lng;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeId;
+        private System.Windows.Forms.Label label28;
     }
 }
 

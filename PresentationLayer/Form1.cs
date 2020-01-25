@@ -1,4 +1,12 @@
-﻿using GMap.NET;
+﻿///
+///             AUTOR
+///             Antonio Supan
+///             
+///             PREDMET
+///             Programiranje u .NET okolini
+
+
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
@@ -232,13 +240,8 @@ namespace PresentationLayer
             {
                 if(polyPoints.Count() > 0)
                 {
-                    ClearMarkersAndPolygonsFromMap();
-                    if (_polygons.Polygons.Count() == 0)
-                    {
                         NapraviPoligon();
-                        PolygonAlreadyExists(ref regionExists);
-                        dataGridViewSearchedPlaces.DataSource = null;
-                    }
+                        PolygonAlreadyExists(ref regionExists);              
                 }
                 else
                 {
@@ -418,12 +421,12 @@ namespace PresentationLayer
 
         private void uputeZaKorištenjeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Ovaj program sastoji se od 3 glavne funkcionalnosti: \n\n\t Pretraživanje lokacija:  \n\t Ova opcija nam omogućuje da pretraživamo lokacije na cijeloj zemaljskoj kugli sukladno unešenim filterima. Ovdje također korisnik vidi razne informacije o lokaciji i spremnim točkama za crtanje poligona. Poligon (područje) možemo nacrtati i samo u njemu na temelju ostalih filter informacija pretraživati lokacije. Nakon uspješnog filtera prikazuju nam se lokacije tablično i na karti, koje možemo spremiti klikom na gumb markera, a nespremljene ( one nacrtane točkama) poligone spremamo dvostukim klikom miša. \n\n\t Prikaz spremljenih lokacija/ poligona:  \n\tSukladno spremljenim poligona i lokacija sa mape, na ovoj opciji imamo 2 tablična prikaza koji se ažuriraju na temelju sa strane unešenih filtera. Spremljene lokacije/poligone ovdje možemo prikazati na mapi, urediti detalje i obrisati redak u tablici i na taj način ažurirati bazu spremljenih lokacija/poligona. \n\n\t Administracija tipova lokacija: \n\t U ovoj opciji nudi nam se prikaz svih tipova lokacija koje su u bazi podataka. Iste možemo omogućiti ili onemogućiti za pretraživanje. Preko filtera automatski se ažurira tablični prikaz prema nazivu tipa lokacije.");
+            MessageBox.Show("Ovaj program sastoji se od 3 glavne funkcionalnosti: \n\n\t Pretraživanje lokacija:  \n\t Ova opcija nam omogućuje da pretraživamo lokacije na cijeloj zemaljskoj kugli sukladno unešenim filterima. Ovdje također korisnik vidi razne informacije o lokaciji i spremnim točkama za crtanje poligona. Poligon (područje) možemo nacrtati i samo u njemu na temelju ostalih filter informacija pretraživati lokacije. Nakon uspješnog filtera prikazuju nam se lokacije tablično i na karti, koje možemo spremiti klikom na gumb markera, a nespremljene ( one nacrtane točkama) poligone spremamo dvostukim klikom miša. \n\n\t Prikaz spremljenih lokacija/ poligona:  \n\tSukladno spremljenim poligona i lokacija sa mape, na ovoj opciji imamo 2 tablična prikaza koji se ažuriraju na temelju sa strane unešenih filtera. Spremljene lokacije/poligone ovdje možemo prikazati na mapi, urediti detalje i obrisati redak u tablici i na taj način ažurirati bazu spremljenih lokacija/poligona. \n\n\t Administracija tipova lokacija: \n\t U ovoj opciji nudi nam se prikaz svih tipova lokacija koje su u bazi podataka. Iste možemo omogućiti ili onemogućiti za pretraživanje. Preko filtera automatski se ažurira tablični prikaz prema nazivu tipa lokacije.", "Upute za korištenje programa", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void oProgramuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Autor: Antonio Supan \n Verzija:  0.01 \n Predmet: Programiranje u .NET okolini \n\t Siječanj 2020.");
+            MessageBox.Show("Autor: Antonio Supan \n Verzija:  0.01 \n Predmet: Programiranje u .NET okolini \n\t Siječanj 2020.", "O programu", MessageBoxButtons.OK, MessageBoxIcon.Information) ;
         }
 
 
@@ -469,6 +472,151 @@ namespace PresentationLayer
 
         private void gmap_OnMapZoomChanged()
         {
+            NapuniTextBoxZaTrenutnuLokaciju();
+        }
+
+        private void gmap_OnMapDrag()
+        {
+            NapuniTextBoxZaTrenutnuLokaciju();
+        }
+
+        //==========================================================================================================================================================================================================================
+        //========================================================================================  GMap Support Functions ==================================================================================================
+
+
+        private GMapMarker NapraviMarker(decimal lat, decimal lng, GMarkerGoogleType markerType, GMapOverlay markers)
+        {
+            GMapMarker marker =
+                        new GMarkerGoogle(
+                            new PointLatLng((double)lat, (double)lng),
+                            markerType);
+            if (tabControl1.SelectedTab == savedLocationsTab)
+            {
+                Supan_Places place = new Supan_Places();
+                using (var mapDB = new MapEntities())
+                {
+                    place = mapDB.Supan_Places.Where(p => p.PLACE_LAT == (decimal)marker.Position.Lat && p.PLACE_LNG == (decimal)marker.Position.Lng).FirstOrDefault();
+                }
+                string[] address = place.PLACE_ADDRESS.Split(',');
+                string ulica = "\n"+ address[address.Count() - 3];
+                string grad = "\n" + address[address.Count() - 2];
+                string drzava = "\n" + address[address.Count() - 1];
+                string adresa = String.Join(",", ulica, grad, drzava);
+
+                PostaviMarkerToolTip(marker, place.PLACE_NAME, adresa);
+            }
+            _markers.Markers.Add(marker);
+            RefreshMarkersOverlay();
+            return marker;
+        }
+
+        private void PostaviMarkerToolTip(GMapMarker marker, string placeName, string placeAddress)
+        {
+            string[] addressParts = placeAddress.Split(',');
+            string ulica = addressParts[addressParts.Count() - 3];
+            string grad = addressParts[addressParts.Count() - 2];
+            string drzava = addressParts[addressParts.Count() - 1];
+            marker.ToolTipText = "\n" + placeName + ulica + grad + drzava;
+            marker.ToolTip.Fill = Brushes.Black;
+            marker.ToolTip.Foreground = Brushes.White;
+            marker.ToolTip.Stroke = Pens.Black;
+            marker.ToolTip.TextPadding = new Size(25, 17);
+            marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+        }
+
+        private void NapraviPoligon()
+        {
+            _polygon = new GMapPolygon(polyPoints, "My Area")
+            {
+                Fill = new SolidBrush(Color.FromArgb(50, Color.Red)),
+                Stroke = new Pen(Color.Red, 1)
+            };
+        }
+
+
+        private void ClearMarkerOverlay()
+        {
+            if (gmap.Overlays.Count == 0)
+            {
+                gmap.Overlays.Add(_markers);
+            }
+            else
+            {
+                _markers.Clear();
+                gmap.Overlays.Remove(_markers);
+                gmap.Refresh();
+            }
+        }
+
+        private void RefreshMarkersOverlay()
+        {
+            gmap.Overlays.Remove(_markers);
+            gmap.Overlays.Add(_markers);
+            gmap.Refresh();
+        }
+
+        private void ResetirajSavedLocationsInputAndAllMarkers()
+        {
+            gmap.Overlays.Remove(_markers);
+            _markers.Markers.Clear();
+            _markers.Clear();
+            NapuniSavedLocationsTypeCombo();
+            NapuniTextBoxSuggest(searchLocationsCityInGridBox, dataGridViewSavedLocations);
+            NapuniTextBoxSuggest(searchLocationsNameInGridBox, dataGridViewSavedLocations);
+        }
+
+        private void ResetirajSavedLocationsBoxes()
+        {
+            NapuniSavedLocationsTypeCombo();
+            NapuniTextBoxSuggest(searchLocationsCityInGridBox, dataGridViewSavedLocations);
+            NapuniTextBoxSuggest(searchLocationsNameInGridBox, dataGridViewSavedLocations);
+        }
+
+        private void ClearMarkersAndPolygonsFromMap()
+        {
+            _markers.Markers.Clear();
+            gmap.Overlays.Remove(_polygons);
+            _polygons.Clear();
+            _polygons.Polygons.Clear();
+            gmap.Refresh();
+        }
+
+        private void ClearMarkersFromMap()
+        {
+            _markers.Markers.Clear();
+            gmap.Refresh();
+        }
+
+        private void PostaviPoligonNaMapu(bool canBeSaved)
+        {
+            _markers.Markers.Clear();
+            _polygons.Polygons.Add(_polygon);
+            _polygon.IsHitTestVisible = canBeSaved;
+            gmap.Overlays.Remove(_polygons);
+            gmap.Overlays.Add(_polygons);
+            gmap.Refresh();
+            gmap.Zoom = 13;
+            gmap.Zoom = gmap.Zoom + 0.01;
+        }
+
+
+        private void RefreshPolyPointsAndPolygons()
+        {
+            polyPoints.Clear();
+            polyPointsReadyTextBox.Text = "" + polyPoints.Count();
+            _polygons.Polygons.Clear();
+            gmap.Overlays.Remove(_polygons);
+            gmap.Refresh();
+        }
+
+        private void RefreshPolyPoints()
+        {
+            polyPoints.Clear();
+            polyPointsReadyTextBox.Text = "" + polyPoints.Count();
+        }
+
+        private void NapuniTextBoxZaTrenutnuLokaciju()
+        {
             gmap.Zoom = gmap.Zoom;
             var lat = decimal.Round((decimal)gmap.Position.Lat, 6, MidpointRounding.AwayFromZero);
             currentLatTextBox.Text = "" + Convert.ToString(lat).Replace(",", ".");
@@ -476,13 +624,98 @@ namespace PresentationLayer
             currentLngTextBox.Text = "" + Convert.ToString(lng).Replace(",", ".");
         }
 
-        private void gmap_OnMapDrag()
+        private void CheckMapMode()
         {
-            gmap.Zoom = gmap.Zoom;
-            var lat = decimal.Round((decimal)gmap.Position.Lat, 6, MidpointRounding.AwayFromZero);
-            currentLatTextBox.Text = "" + Convert.ToString(lat).Replace(",", ".");
-            var lng = decimal.Round((decimal)gmap.Position.Lng, 6, MidpointRounding.AwayFromZero);
-            currentLngTextBox.Text = "" + Convert.ToString(lng).Replace(",", ".");
+            if (normalModeRadio.Checked)
+            {
+                gmap.MapProvider = GoogleMapProvider.Instance;
+            }
+            else if (negativeModeRadio.Checked)
+            {
+                gmap.MapProvider = GoogleHybridMapProvider.Instance;
+            }
+            gmap.Refresh();
+        }
+
+
+
+        private void PolygonAlreadyExists(ref bool alreadyExists)
+        {
+            foreach (var poly in _polygons.Polygons)
+            {
+                alreadyExists = ((poly.From == _polygon.From) && (poly.To == _polygon.To));
+                if (alreadyExists)
+                {
+                    break;
+                }
+            }
+            if (alreadyExists == false)
+            {
+                PostaviPoligonNaMapu(true);
+                dataGridViewSearchedPlaces.DataSource = null;
+            }
+            else
+            {
+                MessageBox.Show("Poligon koji želite nacrtati već je nacrtan.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void PolygonAlreadyExists(ref Supan_RegionPoints pointFirst, ref Supan_RegionPoints pointLast, ref bool alreadyExists)
+        {
+            foreach (var poly in _polygons.Polygons)
+            {
+                var firstPoint = new PointLatLng((double)pointFirst.LAT, (double)pointFirst.LNG);
+                var lastPoint = new PointLatLng((double)pointLast.LAT, (double)pointLast.LNG);
+                alreadyExists = ((poly.From == firstPoint) && (poly.To == lastPoint));
+                if (alreadyExists)
+                {
+                    break;
+                }
+            }
+            if (alreadyExists == false)
+            {
+                PostaviPoligonNaMapu(true);
+                dataGridViewSearchedPlaces.DataSource = null;
+            }
+            else
+            {
+                MessageBox.Show("Poligon koji želite nacrtati već je nacrtan.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        private void drawRegion(int id)
+        {
+            RefreshPolyPointsAndPolygons();
+
+            List<Supan_RegionPoints> RegionPoints;
+            using (var mapDB = new MapEntities())
+            {
+                RegionPoints = mapDB.Supan_RegionPoints.Where(r => r.ID_REGIJE == id).ToList();
+            }
+            foreach (var regionPoint in RegionPoints)
+            {
+                polyPoints.Add(new PointLatLng((double)regionPoint.LAT, (double)regionPoint.LNG));
+            }
+            NapraviPoligon();
+            PostaviPoligonNaMapu(true);
+
+            gmap.Position = new PointLatLng((double)RegionPoints[0].LAT, (double)RegionPoints[0].LNG);
+        }
+
+
+        private void RemoveMarkerOnSameLocationIfItExistsOnMap(decimal lat, decimal lng)
+        {
+            foreach (var marker in _markers.Markers.ToList())
+            {
+                var markerLat = decimal.Round((decimal)marker.Position.Lat, 6, MidpointRounding.AwayFromZero);
+                var markerLng = decimal.Round((decimal)marker.Position.Lng, 6, MidpointRounding.AwayFromZero);
+                if (lat == markerLat && lng == markerLng)
+                {
+                    _markers.Markers.Remove(marker);
+                }
+            }
+            ZoomSavedLocation(lat, lng);
         }
 
 
@@ -666,7 +899,7 @@ namespace PresentationLayer
         {
             DialogResult brisanjeLokacije = MessageBox.Show("Jeste li sigurni da želite obrisati lokaciju?\n Brisanjem lokacije izbrisat će se svi markeri koji su trenutno prikazani na mapi",
             "Brisanje lokacije",
-            MessageBoxButtons.YesNo);
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (brisanjeLokacije.Equals(DialogResult.Yes))
             {
                 ResetirajSavedLocationsInputAndAllMarkers();
@@ -731,6 +964,7 @@ namespace PresentationLayer
                 try
                 {
                     DeleteSavedLocation(placeName);
+                    NapuniSavedLocationsTypeCombo();
                 }
                 catch (Exception ex)
                 {
@@ -778,7 +1012,7 @@ namespace PresentationLayer
             {
                 DialogResult brisanjePoligona = MessageBox.Show("Jeste li sigurni da želite obrisati poligon?\n Brisanjem poligona resetirat će se svi poligoni na mapi.",
                                                                "Brisanje poligona",
-                                                               MessageBoxButtons.YesNo);
+                                                               MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (brisanjePoligona.Equals(DialogResult.Yes))
                 {
                     ResetirajSavedLocationsBoxes();
@@ -920,217 +1154,6 @@ namespace PresentationLayer
 
 
         //==========================================================================================================================================================================================================================
-        //========================================================================================  GMap Support Functions ==================================================================================================
-
-
-        private GMapMarker NapraviMarker(decimal lat, decimal lng, GMarkerGoogleType markerType, GMapOverlay markers)
-        {
-            GMapMarker marker =
-                        new GMarkerGoogle(
-                            new PointLatLng((double)lat, (double)lng),
-                            markerType);
-            if (tabControl1.SelectedTab == savedLocationsTab)
-            {
-                Supan_Places place = new Supan_Places();
-                using (var mapDB = new MapEntities())
-                {
-                    place = mapDB.Supan_Places.Where(p => p.PLACE_LAT == (decimal)marker.Position.Lat && p.PLACE_LNG == (decimal)marker.Position.Lng).FirstOrDefault();
-                }
-                PostaviMarkerToolTip(marker, place.PLACE_NAME, place.PLACE_ADDRESS);
-            }
-            _markers.Markers.Add(marker);
-            RefreshMarkersOverlay();
-            return marker;
-        }
-
-        private void PostaviMarkerToolTip(GMapMarker marker, string placeName, string placeAddress)
-        {
-            string[] addressParts = placeAddress.Split(',');
-            string ulica = addressParts[addressParts.Count() - 3];
-            string grad = addressParts[addressParts.Count() - 2];
-            string drzava = addressParts[addressParts.Count() - 1];
-            marker.ToolTipText = "\n" + placeName  + ulica + grad + drzava;
-            marker.ToolTip.Fill = Brushes.Black;
-            marker.ToolTip.Foreground = Brushes.White;
-            marker.ToolTip.Stroke = Pens.Black;
-            marker.ToolTip.TextPadding = new Size(25, 17);
-            marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-        }
-
-        private void NapraviPoligon()
-        {
-            _polygon = new GMapPolygon(polyPoints, "My Area")
-            {
-                Fill = new SolidBrush(Color.FromArgb(50, Color.Red)),
-                Stroke = new Pen(Color.Red, 1)
-            };
-        }
-
-
-        private void ClearMarkerOverlay()
-        {
-            if (gmap.Overlays.Count == 0)
-            {
-                gmap.Overlays.Add(_markers);
-            }
-            else
-            {
-                _markers.Clear();
-                gmap.Overlays.Remove(_markers);
-                gmap.Refresh();
-            }
-        }
-
-        private void RefreshMarkersOverlay()
-        {
-            gmap.Overlays.Remove(_markers);
-            gmap.Overlays.Add(_markers);
-            gmap.Refresh();
-        }
-
-        private void ResetirajSavedLocationsInputAndAllMarkers()
-        {
-            gmap.Overlays.Remove(_markers);
-            _markers.Markers.Clear();
-            _markers.Clear();
-            NapuniSavedLocationsTypeCombo();
-            NapuniTextBoxSuggest(searchLocationsCityInGridBox, dataGridViewSavedLocations);
-            NapuniTextBoxSuggest(searchLocationsNameInGridBox, dataGridViewSavedLocations);
-        }
-
-        private void ResetirajSavedLocationsBoxes()
-        {
-            NapuniSavedLocationsTypeCombo();
-            NapuniTextBoxSuggest(searchLocationsCityInGridBox, dataGridViewSavedLocations);
-            NapuniTextBoxSuggest(searchLocationsNameInGridBox, dataGridViewSavedLocations);
-        }
-
-        private void ClearMarkersAndPolygonsFromMap()
-        {
-            _markers.Markers.Clear();
-            gmap.Overlays.Remove(_polygons);
-            _polygons.Clear();
-            _polygons.Polygons.Clear();
-            gmap.Refresh();
-        }
-
-
-        private void PostaviPoligonNaMapu(bool canBeSaved)
-        {
-            _markers.Markers.Clear();
-            _polygons.Polygons.Add(_polygon);
-            _polygon.IsHitTestVisible = canBeSaved;
-            gmap.Overlays.Remove(_polygons);
-            gmap.Overlays.Add(_polygons);
-            gmap.Refresh();
-            gmap.Zoom = 13;
-            gmap.Zoom = gmap.Zoom + 0.01;
-        }
-
-
-        private void RefreshPolyPointsAndPolygons()
-        {
-            polyPoints.Clear();
-            polyPointsReadyTextBox.Text = "" + polyPoints.Count();
-            _polygons.Polygons.Clear();
-            gmap.Overlays.Remove(_polygons);
-            gmap.Refresh();
-        }
-
-        private void CheckMapMode()
-        {
-            if (normalModeRadio.Checked)
-            {
-                gmap.MapProvider = GoogleMapProvider.Instance;
-            }
-            else if (negativeModeRadio.Checked)
-            {
-                gmap.MapProvider = GoogleHybridMapProvider.Instance;
-            }
-            gmap.Refresh();
-        }
-
-
-
-        private void PolygonAlreadyExists(ref bool alreadyExists)
-        {
-            foreach (var poly in _polygons.Polygons)
-            {
-                alreadyExists = ((poly.From == _polygon.From) && (poly.To == _polygon.To));
-                if (alreadyExists)
-                {
-                    break;
-                }
-            }
-            if (alreadyExists == false)
-            {
-                PostaviPoligonNaMapu(true);
-            }
-            else
-            {
-                MessageBox.Show("Poligon koji želite nacrtati već je nacrtan.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void PolygonAlreadyExists(ref Supan_RegionPoints pointFirst, ref Supan_RegionPoints pointLast, ref bool alreadyExists)
-        {
-            foreach (var poly in _polygons.Polygons)
-            {
-                var firstPoint = new PointLatLng((double)pointFirst.LAT, (double)pointFirst.LNG);
-                var lastPoint = new PointLatLng((double)pointLast.LAT, (double)pointLast.LNG);
-                alreadyExists = ((poly.From == firstPoint) && (poly.To == lastPoint));
-                if (alreadyExists)
-                {
-                    break;
-                }
-            }
-            if (alreadyExists == false)
-            {
-                PostaviPoligonNaMapu(true);
-                dataGridViewSearchedPlaces.DataSource = null;
-            }
-            else
-            {
-                MessageBox.Show("Poligon koji želite nacrtati već je nacrtan.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-
-        private void drawRegion(int id)
-        {
-            RefreshPolyPointsAndPolygons();
-
-            List<Supan_RegionPoints> RegionPoints;
-            using (var mapDB = new MapEntities())
-            {
-                RegionPoints = mapDB.Supan_RegionPoints.Where(r => r.ID_REGIJE == id).ToList();
-            }
-            foreach (var regionPoint in RegionPoints)
-            {
-                polyPoints.Add(new PointLatLng((double)regionPoint.LAT, (double)regionPoint.LNG));
-            }
-            NapraviPoligon();
-            PostaviPoligonNaMapu(true);
-
-            gmap.Position = new PointLatLng((double)RegionPoints[0].LAT, (double)RegionPoints[0].LNG);
-        }
-
-
-        private void RemoveMarkerOnSameLocationIfItExistsOnMap(decimal lat, decimal lng)
-        {
-            foreach (var marker in _markers.Markers.ToList())
-            {
-                var markerLat = decimal.Round((decimal)marker.Position.Lat, 6, MidpointRounding.AwayFromZero);
-                var markerLng = decimal.Round((decimal)marker.Position.Lng, 6, MidpointRounding.AwayFromZero);
-                if (lat == markerLat && lng == markerLng)
-                {
-                    _markers.Markers.Remove(marker);
-                }
-            }
-            ZoomSavedLocation(lat, lng);
-        }
-
-        //==========================================================================================================================================================================================================================
         //========================================================================================  DB CHECING ==================================================================================================
 
         private bool PlaceAlreadyExistsInDB(decimal lat, decimal lng)
@@ -1234,12 +1257,10 @@ namespace PresentationLayer
 
         private void NapuniPolyCombo()
         {
-            List<Supan_Regions> regijeuBazi = new List<Supan_Regions>();
             using (var mapDB = new MapEntities())
             {
-                regijeuBazi = mapDB.Supan_Regions.ToList();
+                ComboConfig<Supan_Regions>(mapDB.Supan_Regions.ToList(), polyCombo, "NAZIV_REGIJE", "");
             }
-            ComboConfig<Supan_Regions>(regijeuBazi, polyCombo, "NAZIV_REGIJE", "");
         }
 
         private void NapuniSavedLocationsTypeCombo()
@@ -1369,7 +1390,7 @@ namespace PresentationLayer
 
 
         //==========================================================================================================================================================================================================================
-        //========================================================================================  FormEditPolygon ==================================================================================================
+        //========================================================================================  FormSavePolygon ==================================================================================================
 
 
 

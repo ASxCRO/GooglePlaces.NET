@@ -38,7 +38,6 @@ namespace DataAccessLayer
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
             webrequest.Method = "GET";
-            //webrequest.ContentType = "application/x-www-form-urlencoded";
             webrequest.ContentType = "application/json";
             HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
             Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
@@ -51,15 +50,30 @@ namespace DataAccessLayer
 
         public static List<Supan_Places> GetPlaces(int type, decimal lat, decimal lng, int radius)
         {
-            _googlePlaces = new List<Supan_Places>();
+            string address = string.Empty;
+            string street = string.Empty;
+            string city = string.Empty;
+            string country = string.Empty;
 
+            _googlePlaces = new List<Supan_Places>();
             string json = CallRestMethod(GenerateUrl(type, lat, lng, radius));
             JObject jsonObject = JObject.Parse(json);
             JToken results = jsonObject.SelectToken("results");
 
             foreach (JObject place in results)
             {
-
+                address = (string)place.GetValue("vicinity");
+                string[] addressParts = address.Split(',');
+                if (addressParts.Count() > 1)
+                {
+                    street = addressParts[addressParts.Count() - 2].TrimStart();
+                }
+                else
+                {
+                    street = "Ulica nepoznata";
+                }
+                city = addressParts[addressParts.Count()-1].TrimStart();
+                country = Convert.ToString(place.SelectToken("plus_code.compound_code")).Split(' ').Last();
                 _googlePlaces.Add(
                     new Supan_Places
                     {
@@ -67,7 +81,7 @@ namespace DataAccessLayer
                         PLACE_LAT = (decimal)place.SelectToken("geometry.location.lat"),
                         PLACE_LNG = (decimal)place.SelectToken("geometry.location.lng"),
                         PLACE_TYPE = type,
-                        PLACE_ADDRESS = "\n" + (string)place.GetValue("vicinity") + ", \n" + Convert.ToString(place.SelectToken("plus_code.compound_code")).Split(' ').Last()
+                        PLACE_ADDRESS = "\n" + street + ",\n" +city + ", \n" + country
                     });
             }
             return _googlePlaces;

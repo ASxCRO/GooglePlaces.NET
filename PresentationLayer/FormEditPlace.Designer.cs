@@ -212,7 +212,7 @@
             this.MinimizeBox = false;
             this.Name = "FormEditPlace";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormEditPlace";
+            this.Text = "Uredi lokaciju";
             this.Load += new System.EventHandler(this.FormEditPlace_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

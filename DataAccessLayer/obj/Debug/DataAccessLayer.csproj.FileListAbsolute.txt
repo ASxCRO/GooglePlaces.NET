@@ -24,3 +24,16 @@ C:\Users\asupan\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccess
 C:\Users\asupan\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\asupan\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\asupan\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\Korisnik\Desktop\gp\GooglePlaces.NET\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
@@ -59,6 +59,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.removeButton = new System.Windows.Forms.Button();
             this.polyBox = new System.Windows.Forms.GroupBox();
+            this.apiProgressBar = new System.Windows.Forms.ProgressBar();
             this.label15 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -71,6 +72,7 @@
             this.Adresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lng = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.savedLocationsTab = new System.Windows.Forms.TabPage();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -105,8 +107,8 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.searchValueBox = new System.Windows.Forms.TextBox();
-            this.searchValueButton = new System.Windows.Forms.Button();
+            this.searchTypesBox = new System.Windows.Forms.TextBox();
+            this.searchTypesButton = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.dataGridViewAdministration = new System.Windows.Forms.DataGridView();
             this.typeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -179,6 +181,7 @@
             this.gmap.Zoom = 5D;
             this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
             this.gmap.OnPolygonDoubleClick += new GMap.NET.WindowsForms.PolygonDoubleClick(this.gmap_OnPolygonDoubleClick);
+            this.gmap.OnMapDrag += new GMap.NET.MapDrag(this.gmap_OnMapDrag);
             this.gmap.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.gmap_OnMapZoomChanged);
             this.gmap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gmap_MouseClick);
             // 
@@ -507,6 +510,7 @@
             // 
             // polyBox
             // 
+            this.polyBox.Controls.Add(this.apiProgressBar);
             this.polyBox.Controls.Add(this.label15);
             this.polyBox.Controls.Add(this.label9);
             this.polyBox.Controls.Add(this.label8);
@@ -522,12 +526,19 @@
             this.polyBox.TabStop = false;
             this.polyBox.Text = "Poligon";
             // 
+            // apiProgressBar
+            // 
+            this.apiProgressBar.Location = new System.Drawing.Point(22, 61);
+            this.apiProgressBar.Name = "apiProgressBar";
+            this.apiProgressBar.Size = new System.Drawing.Size(219, 3);
+            this.apiProgressBar.TabIndex = 19;
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(67, 50);
+            this.label15.Location = new System.Drawing.Point(68, 14);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(174, 14);
@@ -551,7 +562,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label8.Location = new System.Drawing.Point(16, 77);
+            this.label8.Location = new System.Drawing.Point(17, 73);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(121, 16);
@@ -561,7 +572,7 @@
             // polyCombo
             // 
             this.polyCombo.FormattingEnabled = true;
-            this.polyCombo.Location = new System.Drawing.Point(19, 22);
+            this.polyCombo.Location = new System.Drawing.Point(19, 31);
             this.polyCombo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.polyCombo.Name = "polyCombo";
             this.polyCombo.Size = new System.Drawing.Size(222, 24);
@@ -571,7 +582,7 @@
             // 
             this.btnAddPointToPoly.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPointToPoly.BackgroundImage")));
             this.btnAddPointToPoly.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnAddPointToPoly.Location = new System.Drawing.Point(19, 96);
+            this.btnAddPointToPoly.Location = new System.Drawing.Point(19, 92);
             this.btnAddPointToPoly.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddPointToPoly.Name = "btnAddPointToPoly";
             this.btnAddPointToPoly.Size = new System.Drawing.Size(70, 49);
@@ -614,15 +625,16 @@
             this.locationName,
             this.Adresa,
             this.Lat,
-            this.Lng});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.MenuBar;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Lng,
+            this.typeId});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.MenuBar;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSearchedPlaces.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewSearchedPlaces.Location = new System.Drawing.Point(746, 391);
             this.dataGridViewSearchedPlaces.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridViewSearchedPlaces.Name = "dataGridViewSearchedPlaces";
@@ -663,12 +675,23 @@
             // Lng
             // 
             this.Lng.DataPropertyName = "PLACE_LNG";
+            this.Lng.Frozen = true;
             this.Lng.HeaderText = "Longituda";
             this.Lng.Name = "Lng";
             this.Lng.ReadOnly = true;
             this.Lng.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Lng.Visible = false;
             this.Lng.Width = 70;
+            // 
+            // typeId
+            // 
+            this.typeId.DataPropertyName = "PLACE_TYPE";
+            this.typeId.Frozen = true;
+            this.typeId.HeaderText = "Tip";
+            this.typeId.Name = "typeId";
+            this.typeId.ReadOnly = true;
+            this.typeId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.typeId.Visible = false;
             // 
             // savedLocationsTab
             // 
@@ -788,6 +811,7 @@
             // savedTypesCombo
             // 
             this.savedTypesCombo.BackColor = System.Drawing.Color.White;
+            this.savedTypesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.savedTypesCombo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.savedTypesCombo.FormattingEnabled = true;
             this.savedTypesCombo.Location = new System.Drawing.Point(25, 164);
@@ -1057,8 +1081,8 @@
             this.groupBox6.Controls.Add(this.label26);
             this.groupBox6.Controls.Add(this.label7);
             this.groupBox6.Controls.Add(this.label5);
-            this.groupBox6.Controls.Add(this.searchValueBox);
-            this.groupBox6.Controls.Add(this.searchValueButton);
+            this.groupBox6.Controls.Add(this.searchTypesBox);
+            this.groupBox6.Controls.Add(this.searchTypesButton);
             this.groupBox6.Location = new System.Drawing.Point(749, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(435, 125);
@@ -1102,26 +1126,27 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Unesite naziv tipa lokacije";
             // 
-            // searchValueBox
+            // searchTypesBox
             // 
-            this.searchValueBox.Location = new System.Drawing.Point(42, 49);
-            this.searchValueBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.searchValueBox.Name = "searchValueBox";
-            this.searchValueBox.Size = new System.Drawing.Size(170, 23);
-            this.searchValueBox.TabIndex = 5;
-            this.searchValueBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchValueBox_KeyUp);
+            this.searchTypesBox.Location = new System.Drawing.Point(42, 49);
+            this.searchTypesBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.searchTypesBox.Name = "searchTypesBox";
+            this.searchTypesBox.Size = new System.Drawing.Size(170, 23);
+            this.searchTypesBox.TabIndex = 5;
+            this.searchTypesBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchValueBox_KeyUp);
             // 
-            // searchValueButton
+            // searchTypesButton
             // 
-            this.searchValueButton.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchValueButton.Image = ((System.Drawing.Image)(resources.GetObject("searchValueButton.Image")));
-            this.searchValueButton.Location = new System.Drawing.Point(262, 22);
-            this.searchValueButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.searchValueButton.Name = "searchValueButton";
-            this.searchValueButton.Size = new System.Drawing.Size(156, 73);
-            this.searchValueButton.TabIndex = 4;
-            this.searchValueButton.UseVisualStyleBackColor = true;
-            this.searchValueButton.Click += new System.EventHandler(this.searchValueButton_Click);
+            this.searchTypesButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("searchTypesButton.BackgroundImage")));
+            this.searchTypesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.searchTypesButton.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchTypesButton.Location = new System.Drawing.Point(262, 22);
+            this.searchTypesButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.searchTypesButton.Name = "searchTypesButton";
+            this.searchTypesButton.Size = new System.Drawing.Size(156, 73);
+            this.searchTypesButton.TabIndex = 4;
+            this.searchTypesButton.UseVisualStyleBackColor = true;
+            this.searchTypesButton.Click += new System.EventHandler(this.searchTypesButton_Click);
             // 
             // label25
             // 
@@ -1250,7 +1275,7 @@
             this.spremljeniPoligoniToolStripMenuItem1,
             this.administracijaTipovaToolStripMenuItem1});
             this.opcijeToolStripMenuItem.Name = "opcijeToolStripMenuItem";
-            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.opcijeToolStripMenuItem.Text = "Opcije";
             // 
             // pretražiLokacijeToolStripMenuItem2
@@ -1284,7 +1309,7 @@
             // izlazToolStripMenuItem1
             // 
             this.izlazToolStripMenuItem1.Name = "izlazToolStripMenuItem1";
-            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
             this.izlazToolStripMenuItem1.Text = "Izlaz";
             this.izlazToolStripMenuItem1.Click += new System.EventHandler(this.izlazToolStripMenuItem1_Click);
             // 
@@ -1385,8 +1410,8 @@
         private System.Windows.Forms.DataGridView dataGridViewSavedLocations;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox searchValueBox;
-        private System.Windows.Forms.Button searchValueButton;
+        private System.Windows.Forms.TextBox searchTypesBox;
+        private System.Windows.Forms.Button searchTypesButton;
         private System.Windows.Forms.Button btnAddPoly;
         private System.Windows.Forms.Button btnAddPointToPoly;
         private System.Windows.Forms.CheckBox searchOnlyInPolygon;
@@ -1441,10 +1466,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.RadioButton negativeModeRadio;
         private System.Windows.Forms.RadioButton normalModeRadio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn locationName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Adresa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lng;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem pretražiLokacijeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iZLAZToolStripMenuItem;
@@ -1463,6 +1484,12 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem uputeZaKorištenjeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oProgramuToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar apiProgressBar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn locationName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Adresa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lng;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeId;
     }
 }
 

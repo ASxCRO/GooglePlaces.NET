@@ -29,14 +29,14 @@ namespace PresentationLayer
                     var placeAlreadyInDataBase = mapDB.Supan_Places.Where(p => p.PLACE_NAME == place.PLACE_NAME && p.PLACE_ADDRESS == place.PLACE_ADDRESS).FirstOrDefault();
                     if(placeAlreadyInDataBase != null)
                     {
-                        MessageBox.Show("Ta lokacija već je zapisana u bazi! Provjerite spremljene lokacije.");
+                        MessageBox.Show("Ta lokacija već je zapisana u bazi! Provjerite spremljene lokacije.", "Upozorenje", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     }
                     else
                     {
                         place.PLACE_DESCRIPTION = placeOpisBox.Text;
                         mapDB.Supan_Places.Add(place);
                         mapDB.SaveChanges();
-                        MessageBox.Show("Uspješno ste spremili lokaciju. Spremljena lokacija nalazi se pod opcijom 'Spremljene lokacije'.");
+                        MessageBox.Show("Uspješno ste spremili lokaciju.\n Spremljena lokacija nalazi se pod opcijom 'Spremljene lokacije'.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         savingSuccessfull = true;
                     }
                 }

@@ -131,7 +131,7 @@
             this.MinimizeBox = false;
             this.Name = "FormEditPoly";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormEditPoly";
+            this.Text = "Uredi poligon";
             this.Load += new System.EventHandler(this.FormEditPoly_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

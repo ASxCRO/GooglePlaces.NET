@@ -6,8 +6,8 @@
     </Key>
     <Property Name="PLACE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PLACE_NAME" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="PLACE_LAT" Type="decimal" Precision="8" Scale="6" Nullable="false" />
-    <Property Name="PLACE_LNG" Type="decimal" Precision="8" Scale="6" Nullable="false" />
+    <Property Name="PLACE_LAT" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+    <Property Name="PLACE_LNG" Type="decimal" Precision="9" Scale="6" Nullable="false" />
     <Property Name="PLACE_TYPE" Type="int" />
     <Property Name="PLACE_ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="PLACE_DESCRIPTION" Type="varchar" MaxLength="300" />

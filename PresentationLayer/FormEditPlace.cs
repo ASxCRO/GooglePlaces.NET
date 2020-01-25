@@ -29,9 +29,10 @@ namespace PresentationLayer
         {
             placeNameBox.Text = placeToEdit.PLACE_NAME;
             placeToEdit.PLACE_ADDRESS = Regex.Replace(placeToEdit.PLACE_ADDRESS, @"\t|\n|\r", "");
-            ulicaBox.Text = placeToEdit.PLACE_ADDRESS.Split(',')[0];
-            gradBox.Text = placeToEdit.PLACE_ADDRESS.Split(',')[1];
-            drzavaBox.Text = placeToEdit.PLACE_ADDRESS.Split(',')[2];
+            string[] adresa = placeToEdit.PLACE_ADDRESS.Split(',');
+            ulicaBox.Text = adresa[adresa.Count()-3].TrimStart();
+            gradBox.Text = adresa[adresa.Count() - 2].TrimStart();
+            drzavaBox.Text = adresa[adresa.Count() - 1].TrimStart();
             placeOpisBox.Text = placeToEdit.PLACE_DESCRIPTION;
         }
 
@@ -53,7 +54,7 @@ namespace PresentationLayer
             }
             else
             {
-                MessageBox.Show("Molimo unesite vrijednosti naziva/adrese lokacije!");
+                MessageBox.Show("Molimo unesite vrijednosti naziva/adrese lokacije!", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

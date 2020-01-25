@@ -42,7 +42,7 @@ namespace PresentationLayer
             }
             else
             {
-                MessageBox.Show("Molimo unesite valjanje vrijednosti naziva/opisa poligona!");
+                MessageBox.Show("Molimo unesite valjanje vrijednosti naziva/opisa poligona!", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }

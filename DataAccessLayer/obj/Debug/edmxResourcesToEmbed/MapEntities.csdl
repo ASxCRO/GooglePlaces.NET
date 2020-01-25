@@ -30,8 +30,8 @@
     </Key>
     <Property Name="PLACE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PLACE_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="PLACE_LAT" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
-    <Property Name="PLACE_LNG" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+    <Property Name="PLACE_LAT" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+    <Property Name="PLACE_LNG" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
     <Property Name="PLACE_TYPE" Type="Int32" />
     <NavigationProperty Name="Supan_PlaceTypes" Relationship="DOTNET2019Model.FK_Supan_Places_Supan_PlaceTypes" FromRole="Supan_Places" ToRole="Supan_PlaceTypes" />
     <Property Name="PLACE_ADDRESS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />

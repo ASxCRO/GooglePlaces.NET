@@ -41,7 +41,7 @@ namespace PresentationLayer
                         var polyAlreadyInDataBase = mapDB.Supan_Regions.Where(p => p.NAZIV_REGIJE == nazivPoligonaTextBox.Text && p.OPIS_REGIJE == opisPoligonaTextBox.Text).FirstOrDefault();
                         if (polyAlreadyInDataBase != null)
                         {
-                            MessageBox.Show("Ta regija već je zapisana u bazi! Provjerite spremljene poligone.");
+                            MessageBox.Show("Ta regija već je zapisana u bazi!\n Provjerite spremljene poligone.", "Upozorenje", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                         }
                         else
                         {
@@ -67,7 +67,7 @@ namespace PresentationLayer
                                 MessageBox.Show("Dogodila se pogreška!'.");
                                 throw;
                             }
-                            MessageBox.Show("Uspješno ste spremili regiju. Spremljeni poligon nalazi se pod opcijom 'Spremljene lokacije / poligoni'.");
+                            MessageBox.Show("Uspješno ste spremili regiju.\n Spremljeni poligon nalazi se pod opcijom\n 'Spremljene lokacije / poligoni'.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             savingSuccessfull = true;
                             this.Hide();
 

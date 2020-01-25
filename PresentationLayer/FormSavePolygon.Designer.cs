@@ -129,7 +129,7 @@
             this.MinimizeBox = false;
             this.Name = "FormSavePolygon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormSavePolygon";
+            this.Text = "Spremi poligon";
             this.ResumeLayout(false);
             this.PerformLayout();
 

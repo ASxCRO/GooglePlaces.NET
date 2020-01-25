@@ -96,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(440, 241);
+            this.ClientSize = new System.Drawing.Size(436, 237);
             this.Controls.Add(this.placeOpisBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonCancelAdd);
@@ -109,7 +109,7 @@
             this.MinimumSize = new System.Drawing.Size(456, 280);
             this.Name = "FormSavePlace";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormSavePlace";
+            this.Text = "Spremi lokaciju";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSavePlace));
             this.label10 = new System.Windows.Forms.Label();
             this.buttonUredu = new System.Windows.Forms.Button();
             this.buttonCancelAdd = new System.Windows.Forms.Button();
@@ -103,6 +104,7 @@
             this.Controls.Add(this.buttonUredu);
             this.Controls.Add(this.label10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(456, 280);
             this.MinimizeBox = false;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEditPlace));
             this.buttonCancelAdd = new System.Windows.Forms.Button();
             this.buttonUredu = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -208,6 +209,7 @@
             this.Controls.Add(this.label10);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormEditPlace";

@@ -46,6 +46,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -130,7 +131,6 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.uputeZaKorištenjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oProgramuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -370,6 +370,18 @@
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtriraj lokacije";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label28.Location = new System.Drawing.Point(8, 90);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(59, 14);
+            this.label28.TabIndex = 18;
+            this.label28.Text = "max. 50000";
             // 
             // label16
             // 
@@ -1277,7 +1289,7 @@
             this.spremljeniPoligoniToolStripMenuItem1,
             this.administracijaTipovaToolStripMenuItem1});
             this.opcijeToolStripMenuItem.Name = "opcijeToolStripMenuItem";
-            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opcijeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.opcijeToolStripMenuItem.Text = "Opcije";
             // 
             // pretražiLokacijeToolStripMenuItem2
@@ -1311,7 +1323,7 @@
             // izlazToolStripMenuItem1
             // 
             this.izlazToolStripMenuItem1.Name = "izlazToolStripMenuItem1";
-            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.izlazToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
             this.izlazToolStripMenuItem1.Text = "Izlaz";
             this.izlazToolStripMenuItem1.Click += new System.EventHandler(this.izlazToolStripMenuItem1_Click);
             // 
@@ -1330,28 +1342,16 @@
             // uputeZaKorištenjeToolStripMenuItem
             // 
             this.uputeZaKorištenjeToolStripMenuItem.Name = "uputeZaKorištenjeToolStripMenuItem";
-            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uputeZaKorištenjeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.uputeZaKorištenjeToolStripMenuItem.Text = "Upute za korištenje";
             this.uputeZaKorištenjeToolStripMenuItem.Click += new System.EventHandler(this.uputeZaKorištenjeToolStripMenuItem_Click);
             // 
             // oProgramuToolStripMenuItem
             // 
             this.oProgramuToolStripMenuItem.Name = "oProgramuToolStripMenuItem";
-            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oProgramuToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.oProgramuToolStripMenuItem.Text = "O programu";
             this.oProgramuToolStripMenuItem.Click += new System.EventHandler(this.oProgramuToolStripMenuItem_Click);
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Comic Sans MS", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label28.Location = new System.Drawing.Point(8, 90);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(59, 14);
-            this.label28.TabIndex = 18;
-            this.label28.Text = "max. 50000";
             // 
             // Form1
             // 
@@ -1370,6 +1370,7 @@
             this.MinimumSize = new System.Drawing.Size(1240, 730);
             this.Name = "Form1";
             this.Text = "Google Places";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.mapTab.ResumeLayout(false);

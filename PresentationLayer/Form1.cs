@@ -39,7 +39,6 @@ namespace PresentationLayer
         private GMapPolygon _polygon;
         List<PointLatLng> polyPoints;
 
-
         public Form1()
         {
             InitializeComponent();
@@ -197,7 +196,6 @@ namespace PresentationLayer
             typeCombo.Text = "Svi tipovi";
             dataGridViewSearchedPlaces.DataSource = null;
         }
-
 
         private void searchButton_Click(object sender, EventArgs e)
         {
@@ -370,7 +368,13 @@ namespace PresentationLayer
 
         private void iZLAZToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DialogResult izlazakIzPrograma = MessageBox.Show("Jeste li sigurni da želite izaći iz programa?\n Izlaskom nestat će sve lokacije i poligoni koji su trenutno na mapi, a nisu spremljeni.",
+           "Izlazak iz programa",
+           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (izlazakIzPrograma.Equals(DialogResult.Yes))
+            {
             Application.Exit();
+            }
         }
 
         private void pretražiLokacijeToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -416,7 +420,13 @@ namespace PresentationLayer
 
         private void izlazToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult izlazakIzPrograma = MessageBox.Show("Jeste li sigurni da želite izaći iz programa?\n Izlaskom nestat će sve lokacije i poligoni koji su trenutno na mapi, a nisu spremljeni.",
+            "Izlazak iz programa",
+             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (izlazakIzPrograma.Equals(DialogResult.Yes))
+            {
+                Application.Exit();
+            }
         }
 
         private void uputeZaKorištenjeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -481,8 +491,7 @@ namespace PresentationLayer
         }
 
         //==========================================================================================================================================================================================================================
-        //========================================================================================  GMap Support Functions ==================================================================================================
-
+        //========================================================================================  GMap Support Functions =================================================================================================
 
         private GMapMarker NapraviMarker(decimal lat, decimal lng, GMarkerGoogleType markerType, GMapOverlay markers)
         {
@@ -599,7 +608,6 @@ namespace PresentationLayer
             gmap.Zoom = gmap.Zoom + 0.01;
         }
 
-
         private void RefreshPolyPointsAndPolygons()
         {
             polyPoints.Clear();
@@ -636,8 +644,6 @@ namespace PresentationLayer
             }
             gmap.Refresh();
         }
-
-
 
         private void PolygonAlreadyExists(ref bool alreadyExists)
         {
@@ -683,7 +689,6 @@ namespace PresentationLayer
             }
         }
 
-
         private void drawRegion(int id)
         {
             RefreshPolyPointsAndPolygons();
@@ -703,7 +708,6 @@ namespace PresentationLayer
             gmap.Position = new PointLatLng((double)RegionPoints[0].LAT, (double)RegionPoints[0].LNG);
         }
 
-
         private void RemoveMarkerOnSameLocationIfItExistsOnMap(decimal lat, decimal lng)
         {
             foreach (var marker in _markers.Markers.ToList())
@@ -717,8 +721,6 @@ namespace PresentationLayer
             }
             ZoomSavedLocation(lat, lng);
         }
-
-
 
         //==========================================================================================================================================================================================================================
         //========================================================================================  GENERAL DATAGRIDVIEW SETUP ==================================================================================================
@@ -746,7 +748,6 @@ namespace PresentationLayer
             dataGridView.DataSource = bindingSource;
             return dataGridView;
         }
-
 
         //==========================================================================================================================================================================================================================
         //========================================================================================  DataGridView SearchedPlaces ==================================================================================================
@@ -873,8 +874,6 @@ namespace PresentationLayer
                 MessageBox.Show("Nije pronađeno niti jedno mjesto prema odabranim kriterijima.", "Upozorenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-
         
         private void dataGridViewSearchedPlaces_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -889,8 +888,6 @@ namespace PresentationLayer
                 gmap.Zoom = 30;
             }
         }
-
-
 
         //==========================================================================================================================================================================================================================
         //========================================================================================  DataGridView Places ==================================================================================================
@@ -978,10 +975,9 @@ namespace PresentationLayer
             }
         }
 
-
-
         //==========================================================================================================================================================================================================================
         //========================================================================================  DataGridView Polygons ==================================================================================================
+
         private void GetRegionAndRegionPoints(ref Supan_Regions region, ref List<Supan_RegionPoints> regionPoints, string nazivOdabraneRegije, string opisOdabraneRegije)
         {
             using (var mapDB = new MapEntities())
@@ -1152,7 +1148,6 @@ namespace PresentationLayer
 
         }
 
-
         //==========================================================================================================================================================================================================================
         //========================================================================================  DB CHECING ==================================================================================================
 
@@ -1165,7 +1160,6 @@ namespace PresentationLayer
             }
         }
 
-
         private void GetPlaceType(ref Supan_PlaceTypes placeType, string typeName)
         {
             using (var mapDB = new MapEntities())
@@ -1173,7 +1167,6 @@ namespace PresentationLayer
                 placeType = mapDB.Supan_PlaceTypes.Where(t => t.TYPE_NAME == typeName).FirstOrDefault();
             }
         }
-
 
         private void GetRegionPointsFromDB(ref Supan_Regions region, ref List<Supan_RegionPoints> regionPoints, ref bool regionExists)
         {
@@ -1215,16 +1208,10 @@ namespace PresentationLayer
                     break;
                 }
             }
-
         }
-
-
-
 
         //==========================================================================================================================================================================================================================
         //========================================================================================  Functions considering COMBOBOXES ==================================================================================================
-
-
 
         private void ComboConfig<T>(List<T> lista, ComboBox comboBox, string displayMember, string text)
         {
@@ -1282,9 +1269,6 @@ namespace PresentationLayer
             imenaJedinstvenihSpremljenihLokacijinihTipova.AddRange(tipoviTrenutnoUSpremljenimLokacijama.DistinctBy(t => t.TYPE_NAME).ToList());
             ComboConfig<Supan_PlaceTypes>(imenaJedinstvenihSpremljenihLokacijinihTipova, savedTypesCombo, "TYPE_NAME", "");
         }
-
-
-
 
         //==========================================================================================================================================================================================================================
         //========================================================================================  FormSavePlace ==================================================================================================
@@ -1355,16 +1339,8 @@ namespace PresentationLayer
             }
         }
 
-       
-
-
-
         //==========================================================================================================================================================================================================================
         //========================================================================================  FormEditPolygon ==================================================================================================
-
-
-
-
 
         private void OtvoriFormuZaUredivanjePoligona(string polyName)
         {
@@ -1388,14 +1364,8 @@ namespace PresentationLayer
             }
         }
 
-
         //==========================================================================================================================================================================================================================
         //========================================================================================  FormSavePolygon ==================================================================================================
-
-
-
-
-
 
         private void OtvoriFormuZaSpremanjePoligona()
         {
@@ -1414,22 +1384,20 @@ namespace PresentationLayer
             }
         }
 
-
-
-
-
-        //    private void noviKorisnikToolStripMenuItem_Click(object sender, EventArgs e)
-        //    {
-        //        FormAddUser addUser = new FormAddUser(this);
-        //        //addUser.Visible = false;
-        //        addUser.ShowDialog();
-        //    }
-
-        //    private void izlazToolStripMenuItem1_Click(object sender, EventArgs e)
-        //    {
-        //        Application.Exit();
-        //    }
-        //}
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult izlazakIzPrograma = MessageBox.Show("Jeste li sigurni da želite izaći iz programa?\n Izlaskom nestat će sve lokacije i poligoni koji su trenutno na mapi, a nisu spremljeni.",
+            "Izlazak iz programa",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (izlazakIzPrograma.Equals(DialogResult.Yes))
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
 

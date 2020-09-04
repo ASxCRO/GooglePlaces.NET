@@ -29,7 +29,7 @@ namespace DataAccessLayer
                 + Lng
                 + "&radius=" + radius
                 + "&type=" + sType
-                + "&key=AIzaSyBSuPs2jtLhJs-9BHt-4iIZhABawlJvHhs";
+                + "&key=******************************************; /* Insert YOUR api key! */
 
             return url;
         }
